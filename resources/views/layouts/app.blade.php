@@ -54,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         @if (Auth::user()->hasRole('superadmin'))
         @include('layouts.menu_superadmin')
         @else
-        @include('layouts.menu_kasir')
+
         @endif
 
 
