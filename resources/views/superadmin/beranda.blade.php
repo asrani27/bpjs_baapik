@@ -172,7 +172,7 @@
                     </thead>
                     <tbody>
                         @foreach ($kia as $item)
-                        <tr>
+                        <tr style="font-size: 10px">
                             <td>{{$item->nomor_antrian}}</td>
                             <td>{{$item->nama}}</td>
                             <td>{{$item->nmPoli}}</td>
