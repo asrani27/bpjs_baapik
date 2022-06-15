@@ -59,4 +59,9 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 
     Route::get('/entri/data/pasien', [PasienController::class, 'index']);
     Route::get('/entri/data/pasien/sync', [PasienController::class, 'sync']);
+
+
+    Route::get('/panggil/{id}', [BerandaController::class, 'panggil']);
+    Route::get('/selesai/{id}', [BerandaController::class, 'selesai']);
+    Route::get('/lewati/{id}', [BerandaController::class, 'lewati']);
 });

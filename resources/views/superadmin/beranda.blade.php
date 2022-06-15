@@ -49,7 +49,7 @@
             <div class="card-body" style="display: block;">
                 <table class="table table-sm table-bordered">
                     <thead>
-                        <tr>
+                        <tr style="font-size: 11px">
                             <th>No</th>
                             <th>Nama</th>
                             <th>Poli</th>
@@ -67,11 +67,13 @@
                                 @if ($item->status == 0)
                                 <span class="badge badge-info">menunggu</span>
                                 @elseif ($item->status == 1)
-                                <span class="badge badge-danger">diperiksa</span>
+                                <span class="badge badge-danger">Di Panggil</span>
                                 @elseif ($item->status == 2)
+                                <span class="badge badge-danger">Sedang Di Periksa</span>
+                                @elseif ($item->status == 3)
                                 <span class="badge badge-success">selesai</span>
-                                @else
-                                <span class="badge badge-warning">dilewati</span>
+                                @elseif ($item->status == 4)
+                                <span class="badge badge-warning">di lewati</span>
                                 @endif
                             </td>
                             <td>
@@ -79,9 +81,9 @@
                                     <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Panggil</a></li>
-                                        <li><a class="dropdown-item" href="#">Selesai</a></li>
-                                        <li><a class="dropdown-item" href="#">Lewati</a></li>
+                                        <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -109,7 +111,7 @@
             <div class="card-body" style="display: block;">
                 <table class="table table-sm table-bordered">
                     <thead>
-                        <tr>
+                        <tr style="font-size: 11px">
                             <th>No</th>
                             <th>Nama</th>
                             <th>Poli</th>
@@ -127,11 +129,13 @@
                                 @if ($item->status == 0)
                                 <span class="badge badge-info">menunggu</span>
                                 @elseif ($item->status == 1)
-                                <span class="badge badge-danger">diperiksa</span>
+                                <span class="badge badge-danger">Di Panggil</span>
                                 @elseif ($item->status == 2)
+                                <span class="badge badge-danger">Sedang Di Periksa</span>
+                                @elseif ($item->status == 3)
                                 <span class="badge badge-success">selesai</span>
-                                @else
-                                <span class="badge badge-warning">dilewati</span>
+                                @elseif ($item->status == 4)
+                                <span class="badge badge-warning">di lewati</span>
                                 @endif
                             </td>
                             <td>
@@ -139,9 +143,9 @@
                                     <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Panggil</a></li>
-                                        <li><a class="dropdown-item" href="#">Selesai</a></li>
-                                        <li><a class="dropdown-item" href="#">Lewati</a></li>
+                                        <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -169,7 +173,7 @@
             <div class="card-body" style="display: block;">
                 <table class="table table-sm table-bordered">
                     <thead>
-                        <tr>
+                        <tr style="font-size: 11px">
                             <th>No</th>
                             <th>Nama</th>
                             <th>Poli</th>
@@ -187,11 +191,13 @@
                                 @if ($item->status == 0)
                                 <span class="badge badge-info">menunggu</span>
                                 @elseif ($item->status == 1)
-                                <span class="badge badge-danger">diperiksa</span>
+                                <span class="badge badge-danger">Di Panggil</span>
                                 @elseif ($item->status == 2)
+                                <span class="badge badge-danger">Sedang Di Periksa</span>
+                                @elseif ($item->status == 3)
                                 <span class="badge badge-success">selesai</span>
-                                @else
-                                <span class="badge badge-warning">dilewati</span>
+                                @elseif ($item->status == 4)
+                                <span class="badge badge-warning">di lewati</span>
                                 @endif
                             </td>
                             <td>
@@ -199,9 +205,9 @@
                                     <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Panggil</a></li>
-                                        <li><a class="dropdown-item" href="#">Selesai</a></li>
-                                        <li><a class="dropdown-item" href="#">Lewati</a></li>
+                                        <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -229,7 +235,7 @@
             <div class="card-body" style="display: block;">
                 <table class="table table-sm table-bordered">
                     <thead>
-                        <tr>
+                        <tr style="font-size: 11px">
                             <th>No</th>
                             <th>Nama</th>
                             <th>Poli</th>
@@ -247,11 +253,13 @@
                                 @if ($item->status == 0)
                                 <span class="badge badge-info">menunggu</span>
                                 @elseif ($item->status == 1)
-                                <span class="badge badge-danger">diperiksa</span>
+                                <span class="badge badge-danger">Di Panggil</span>
                                 @elseif ($item->status == 2)
+                                <span class="badge badge-danger">Sedang Di Periksa</span>
+                                @elseif ($item->status == 3)
                                 <span class="badge badge-success">selesai</span>
-                                @else
-                                <span class="badge badge-warning">dilewati</span>
+                                @elseif ($item->status == 4)
+                                <span class="badge badge-warning">di lewati</span>
                                 @endif
                             </td>
                             <td>
@@ -259,9 +267,9 @@
                                     <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Panggil</a></li>
-                                        <li><a class="dropdown-item" href="#">Selesai</a></li>
-                                        <li><a class="dropdown-item" href="#">Lewati</a></li>
+                                        <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
                                     </ul>
                                 </div>
                             </td>
