@@ -53,16 +53,38 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Poli</th>
+                            <th>Status</th>
                             <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($umum as $item)
-                        <tr>
+                        <tr style="font-size: 11px">
                             <td>{{$item->nomor_antrian}}</td>
                             <td>{{$item->nama}}</td>
                             <td>{{$item->nmPoli}}</td>
-                            <td>#</td>
+                            <td>
+                                @if ($item->status == 0)
+                                <span class="badge badge-info">menunggu</span>
+                                @elseif ($item->status == 1)
+                                <span class="badge badge-danger">diperiksa</span>
+                                @elseif ($item->status == 2)
+                                <span class="badge badge-success">selesai</span>
+                                @else
+                                <span class="badge badge-warning">dilewati</span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="#">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="#">Lewati</a></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -91,16 +113,38 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Poli</th>
+                            <th>Status</th>
                             <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($lansia as $item)
-                        <tr>
+                        <tr style="font-size: 11px">
                             <td>{{$item->nomor_antrian}}</td>
                             <td>{{$item->nama}}</td>
                             <td>{{$item->nmPoli}}</td>
-                            <td>#</td>
+                            <td>
+                                @if ($item->status == 0)
+                                <span class="badge badge-info">menunggu</span>
+                                @elseif ($item->status == 1)
+                                <span class="badge badge-danger">diperiksa</span>
+                                @elseif ($item->status == 2)
+                                <span class="badge badge-success">selesai</span>
+                                @else
+                                <span class="badge badge-warning">dilewati</span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="#">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="#">Lewati</a></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -129,16 +173,38 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Poli</th>
+                            <th>Status</th>
                             <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($gigi as $item)
-                        <tr>
+                        <tr style="font-size: 11px">
                             <td>{{$item->nomor_antrian}}</td>
                             <td>{{$item->nama}}</td>
                             <td>{{$item->nmPoli}}</td>
-                            <td>#</td>
+                            <td>
+                                @if ($item->status == 0)
+                                <span class="badge badge-info">menunggu</span>
+                                @elseif ($item->status == 1)
+                                <span class="badge badge-danger">diperiksa</span>
+                                @elseif ($item->status == 2)
+                                <span class="badge badge-success">selesai</span>
+                                @else
+                                <span class="badge badge-warning">dilewati</span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="#">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="#">Lewati</a></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -167,6 +233,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Poli</th>
+                            <th>Status</th>
                             <th>#</th>
                         </tr>
                     </thead>
@@ -176,7 +243,28 @@
                             <td>{{$item->nomor_antrian}}</td>
                             <td>{{$item->nama}}</td>
                             <td>{{$item->nmPoli}}</td>
-                            <td>#</td>
+                            <td>
+                                @if ($item->status == 0)
+                                <span class="badge badge-info">menunggu</span>
+                                @elseif ($item->status == 1)
+                                <span class="badge badge-danger">diperiksa</span>
+                                @elseif ($item->status == 2)
+                                <span class="badge badge-success">selesai</span>
+                                @else
+                                <span class="badge badge-warning">dilewati</span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="#">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="#">Lewati</a></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
