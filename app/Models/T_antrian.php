@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class T_antrian extends Model
 {
     use HasFactory;
+    protected $table = 't_antrian';
+    protected $guarded = ['id'];
 }

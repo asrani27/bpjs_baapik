@@ -27,43 +27,164 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-12">
-        {{-- <form method="post" action="/beranda/url/update">
-            @csrf
-            <div class="row">
-                <div class="col-lg-12 col-12">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">BASE URL INTEGRASI</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">URL AKTIVITAS</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="tpp" value="{{$base->tpp}}" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">URL PRESENSI</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="presensi" value="{{$base->presensi}}"
-                                        required>
-                                </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-10">
-                                    <button type="submit"
-                                        class="btn btn-block btn-primary"><strong>UPDATE</strong></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="row text-center">
+    <div class="col-sm-12">
+        <h1>{{\Carbon\Carbon::now()->format('d M Y')}}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">ANTRIAN POLI UMUM</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
                 </div>
+                <!-- /.card-tools -->
             </div>
-        </form> --}}
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Poli</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($umum as $item)
+                        <tr>
+                            <td>{{$item->nomor_antrian}}</td>
+                            <td>{{$item->nama}}</td>
+                            <td>{{$item->nmPoli}}</td>
+                            <td>#</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">ANTRIAN POLI LANSIA</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Poli</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($lansia as $item)
+                        <tr>
+                            <td>{{$item->nomor_antrian}}</td>
+                            <td>{{$item->nama}}</td>
+                            <td>{{$item->nmPoli}}</td>
+                            <td>#</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">ANTRIAN POLI GIGI & MULUT</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Poli</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($gigi as $item)
+                        <tr>
+                            <td>{{$item->nomor_antrian}}</td>
+                            <td>{{$item->nama}}</td>
+                            <td>{{$item->nmPoli}}</td>
+                            <td>#</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">ANTRIAN POLI KIA</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Poli</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($kia as $item)
+                        <tr>
+                            <td>{{$item->nomor_antrian}}</td>
+                            <td>{{$item->nama}}</td>
+                            <td>{{$item->nmPoli}}</td>
+                            <td>#</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
     </div>
 </div>
 
