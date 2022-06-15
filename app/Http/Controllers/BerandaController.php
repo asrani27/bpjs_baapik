@@ -19,6 +19,38 @@ class BerandaController extends Controller
         return view('superadmin.beranda', compact('umum', 'gigi', 'lansia', 'kia'));
     }
 
+    public function panggil($id)
+    {
+        T_antrian::find($id)->update([
+            'status' => 1,
+        ]);
+        return back();
+    }
+
+    public function periksa($id)
+    {
+        T_antrian::find($id)->update([
+            'status' => 2,
+        ]);
+        return back();
+    }
+
+    public function selesai($id)
+    {
+        T_antrian::find($id)->update([
+            'status' => 3,
+        ]);
+        return back();
+    }
+
+    public function lewati($id)
+    {
+        T_antrian::find($id)->update([
+            'status' => 4,
+        ]);
+        return back();
+    }
+
     // public function updateurl(Request $req)
     // {
     //     BaseUrl::first()->update([

@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 
 
     Route::get('/panggil/{id}', [BerandaController::class, 'panggil']);
+    Route::get('/periksa/{id}', [BerandaController::class, 'periksa']);
     Route::get('/selesai/{id}', [BerandaController::class, 'selesai']);
     Route::get('/lewati/{id}', [BerandaController::class, 'lewati']);
 });
