@@ -11,8 +11,7 @@ class BerandaController extends Controller
     public function index()
     {
         $tgl = Carbon::now()->format('Y-m-d');
-        $tgl2 = Carbon::now()->format('Y-m-d');
-        dd($tgl, $tgl2);
+
         $umum       = T_antrian::where('tanggal', $tgl)->where('kdPoli', '001')->get();
         $gigi       = T_antrian::where('tanggal', $tgl)->where('kdPoli', '002')->get();
         $lansia     = T_antrian::where('tanggal', $tgl)->where('kdPoli', '012')->get();
