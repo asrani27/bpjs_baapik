@@ -82,6 +82,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="/periksa/{{$item->id}}">Periksa</a></li>
                                         <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
                                         <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
                                     </ul>
@@ -144,6 +145,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="/periksa/{{$item->id}}">Periksa</a></li>
                                         <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
                                         <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
                                     </ul>
@@ -206,6 +208,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="/periksa/{{$item->id}}">Periksa</a></li>
                                         <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
                                         <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
                                     </ul>
@@ -268,6 +271,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        <li><a class="dropdown-item" href="/periksa/{{$item->id}}">Periksa</a></li>
                                         <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
                                         <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
                                     </ul>
