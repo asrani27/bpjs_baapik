@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\M_poli;
+use GuzzleHttp\Client;
 use App\Models\T_antrian;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class BerandaController extends Controller
 {
@@ -51,14 +56,105 @@ class BerandaController extends Controller
         return back();
     }
 
-    // public function updateurl(Request $req)
-    // {
-    //     BaseUrl::first()->update([
-    //         'tpp' => $req->tpp,
-    //         'presensi' => $req->presensi,
-    //     ]);
+    public function antrian()
+    {
+        return view('superadmin.antrian');
+    }
 
-    //     toastr()->success('Berhasil Di Update');
-    //     return back();
-    // }
+    public function antrianumum()
+    {
+        $poli = M_poli::get();
+        return view('superadmin.antrianumum', compact('poli'));
+    }
+
+    public function checknomor()
+    {
+        $nomor = request()->nomor;
+
+        $user = Auth::user();
+
+        $client = new Client([
+            'base_uri' => $user->base_url,
+        ]);
+
+        try {
+
+            if (Str::length($nomor) == 13) {
+                //bpjs
+                $response = $client->request('GET', 'peserta/' . $nomor, [
+                    'headers' => headers()
+                ]);
+            } else {
+                //nik
+                $response = $client->request('GET', 'peserta/nik/' . $nomor, [
+                    'headers' => headers()
+                ]);
+            }
+            $poli = M_poli::get();
+            $data = json_decode((string)$response->getBody())->response;
+            return view('superadmin.antrianbpjs2', compact('data', 'poli'));
+        } catch (\Exception $e) {
+
+            generateHeaders();
+            toastr()->error('Gagal Sinkron');
+            return back();
+        }
+    }
+    public function storeantrianumum(Request $req)
+    {
+        DB::beginTransaction();
+        try {
+            $attr = $req->all();
+            $attr['kdPoli'] = M_poli::find($req->poli_id)->kdPoli;
+            $attr['nmPoli'] = M_poli::find($req->poli_id)->nmPoli;
+
+            $db = T_antrian::where('tanggal', $req->tanggal)->where('kdPoli', $attr['kdPoli'])->get();
+            if ($db->count() == 0) {
+                $antrian = antrean(1);
+            } else {
+                $antrian = antrean((int)$db->last()->nomor_antrian + 1);
+            }
+            $attr['nomor_antrian'] = $antrian;
+            $attr['pendaftaran_id'] = 0;
+            T_antrian::create($attr);
+            DB::commit();
+            toastr()->success('Pendaftaran Berhasil');
+            return redirect('/beranda');
+        } catch (\Exception $e) {
+            DB::rollback();
+            toastr()->error('Gagal Menyimpan');
+            return back();
+        }
+    }
+
+    public function storeantrianbpjs(Request $req)
+    {
+        DB::beginTransaction();
+        try {
+            $attr = $req->all();
+            $attr['kdPoli'] = M_poli::find($req->poli_id)->kdPoli;
+            $attr['nmPoli'] = M_poli::find($req->poli_id)->nmPoli;
+
+            $db = T_antrian::where('tanggal', $req->tanggal)->where('kdPoli', $attr['kdPoli'])->get();
+            if ($db->count() == 0) {
+                $antrian = antrean(1);
+            } else {
+                $antrian = antrean((int)$db->last()->nomor_antrian + 1);
+            }
+            $attr['nomor_antrian'] = $antrian;
+            $attr['pendaftaran_id'] = 0;
+            T_antrian::create($attr);
+            DB::commit();
+            toastr()->success('Pendaftaran Berhasil');
+            return redirect('/beranda');
+        } catch (\Exception $e) {
+            DB::rollback();
+            toastr()->error('Gagal Menyimpan');
+            return back();
+        }
+    }
+    public function antrianbpjs()
+    {
+        return view('superadmin.antrianbpjs');
+    }
 }

@@ -63,14 +63,27 @@ function checkBPJS()
 function headers()
 {
     $user = Auth::user();
-    $headers = [
-        'X-Cons-id'         => $user->cons_id,
-        'X-Timestamp'       => $user->x_timestamp,
-        'X-Signature'       => $user->x_signature,
-        'X-Authorization'   => $user->x_authorization,
-    ];
 
-    return $headers;
+    $cons_id = $user->cons_id;
+    $secret_key = $user->secret_key;
+    $username_pcare = $user->user_pcare;
+    $password_pcare = $user->pass_pcare;
+    $kdAplikasi = '095';
+
+    date_default_timezone_set('UTC');
+    $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
+    $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secret_key, true);
+    $encodedSignature = base64_encode($signature);
+    $urlencodedSignature = urlencode($encodedSignature);
+
+    $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
+
+    $head['X-cons-id'] = $cons_id;
+    $head['X-Timestamp'] = $tStamp;
+    $head['X-Signature'] = $encodedSignature;
+    $head['X-Authorization'] = 'Basic ' . $Authorization;
+
+    return $head;
 }
 
 function generateHeaders()
@@ -101,4 +114,15 @@ function generateHeaders()
     $u->x_signature = $head['X-Signature'];
     $u->x_authorization = 'Basic ' . $head['X-Authorization'];
     $u->save();
+}
+
+function antrean($param)
+{
+    if (strlen($param) == 1) {
+        return $hasil = '000' . $param;
+    } elseif (strlen($param) == 2) {
+        return $hasil = '00' . $param;
+    } elseif (strlen($param) == 3) {
+        return $hasil = '0' . $param;
+    }
 }

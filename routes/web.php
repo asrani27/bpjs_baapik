@@ -18,11 +18,17 @@ Route::get('/', [LoginController::class, 'showlogin']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
-    Route::get('/beranda', [BerandaController::class, 'index']);
-    Route::get('/logout', [LogoutController::class, 'logout']);
-    Route::get('/setting/data/bpjs', [SettingController::class, 'bpjs']);
-    Route::post('/setting/data/bpjs', [SettingController::class, 'updatebpjs']);
-    Route::get('/setting/data/bpjs/connect', [SettingController::class, 'connectBPJS']);
+    Route::get('daftarantrian', [BerandaController::class, 'antrian']);
+    Route::get('daftarantrian/umum', [BerandaController::class, 'antrianumum']);
+    Route::post('daftarantrian/umum', [BerandaController::class, 'storeantrianumum']);
+    Route::get('daftarantrian/bpjs', [BerandaController::class, 'antrianbpjs']);
+    Route::post('daftarantrian/bpjs', [BerandaController::class, 'storeantrianbpjs']);
+    Route::get('daftarantrian/bpjs/nomor', [BerandaController::class, 'checknomor']);
+    Route::get('beranda', [BerandaController::class, 'index']);
+    Route::get('logout', [LogoutController::class, 'logout']);
+    Route::get('setting/data/bpjs', [SettingController::class, 'bpjs']);
+    Route::post('setting/data/bpjs', [SettingController::class, 'updatebpjs']);
+    Route::get('setting/data/bpjs/connect', [SettingController::class, 'connectBPJS']);
 
     Route::get('/datamaster/data/dokter', [DokterController::class, 'index']);
     Route::get('/datamaster/data/dokter/sync', [DokterController::class, 'sync']);

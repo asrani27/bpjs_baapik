@@ -31,6 +31,7 @@
 <div class="row text-center">
     <div class="col-sm-12">
         <h1>{{\Carbon\Carbon::now()->format('d M Y')}}</h1>
+        <a href="/daftarantrian" class="btn btn-primary">DAFTAR ANTRIAN</a><br /><br />
     </div>
 </div>
 <div class="row">
