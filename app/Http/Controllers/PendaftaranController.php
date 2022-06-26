@@ -23,12 +23,14 @@ class PendaftaranController extends Controller
             'base_uri' => $user->base_url,
         ]);
 
+
         if ($req->button == 'tarik') {
             try {
                 $response = $client->request('GET', 'pendaftaran/tglDaftar/' . Carbon::parse($req->tanggal)->format('d-m-Y') . '/0/100', [
                     'headers' => headers()
                 ]);
                 $dataresp = json_decode((string)$response->getBody())->response;
+
                 if ($dataresp == null) {
                     $req->flash();
                     return back();
