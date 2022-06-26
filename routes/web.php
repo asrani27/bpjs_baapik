@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     //Route::get('/entri/data/pendaftaran/sync', [PendaftaranController::class, 'sync']);
 
     Route::get('/entri/data/pasien', [PasienController::class, 'index']);
+    Route::get('/entri/data/pasien/add', [PasienController::class, 'create']);
+    Route::get('/entri/data/pasien/delete/{id}', [PasienController::class, 'delete']);
+    Route::post('/entri/data/pasien/add', [PasienController::class, 'store']);
     Route::get('/entri/data/pasien/sync', [PasienController::class, 'sync']);
 
 

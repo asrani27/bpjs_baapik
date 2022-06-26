@@ -35,29 +35,20 @@
                     $no =1;
                     @endphp
                     <tbody>
-                        {{-- @foreach ($data as $key => $item)
+                        @foreach ($data as $key => $item)
                         <tr>
                             <td>{{$no++}}</td>
-                            <td>{{$item->kdDokter}}</td>
-                            <td>{{$item->nmDokter}}</td>
+                            <td>{{$item->nik}}</td>
+                            <td>{{$item->noKartu}}</td>
+                            <td>{{$item->nama}}</td>
+                            <td>{{$item->tglLahir}}</td>
+                            <td>{{$item->sex}}</td>
                             <td>
-                                @if ($item->is_bridging == 1)
-                                <span class="text-success"> <i class="fa fa-check"></i></span>
-                                @else
-                                <span class="text-danger"> <i class="fa fa-times"></i></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($item->is_bridging == 1)
-                                @else
-                                <a href="/datamaster/data/dokter/edit/{{$item->id}}" class="btn btn-xs btn-success"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="/datamaster/data/dokter/delete/{{$item->id}}" class="btn btn-xs btn-danger"
+                                <a href="/entri/data/pasien/delete/{{$item->id}}" class="btn btn-xs btn-danger"
                                     onclick="return confirm('yakin DI Hapus?');"><i class="fas fa-trash"></i></a>
-                                @endif
                             </td>
                         </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

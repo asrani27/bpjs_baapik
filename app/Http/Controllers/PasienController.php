@@ -11,8 +11,42 @@ class PasienController extends Controller
 {
     public function index()
     {
-        $data = M_pasien::get();
-        return view('superadmin.entri.pasien.index', compact('data'));
+        try {
+            $data = M_pasien::get();
+            toastr()->success('Berhasil Dihapus');
+            return view('superadmin.entri.pasien.index', compact('data'));
+        } catch (\Exception $e) {
+            toastr()->error('Gagal Di Hapus');
+        }
+    }
+
+    public function delete($id)
+    {
+        M_pasien::find($id)->delete();
+        return back();
+    }
+
+    public function create()
+    {
+        return view('superadmin.entri.pasien.create');
+    }
+
+    public function store(Request $req)
+    {
+        $checkNIK = M_pasien::where('nik', $req->nik)->first();
+        $checkKartu = M_pasien::where('noKartu', $req->noKartu)->first();
+        if ($checkNIK != null) {
+            toastr()->error('NIK sudah ada');
+            return back();
+        }
+        if ($checkKartu != null) {
+            toastr()->error('no Kartu sudah ada');
+            return back();
+        }
+
+        M_Pasien::create($req->all());
+        toastr()->success('Berhasil Disimpan');
+        return redirect('/entri/data/pasien');
     }
     public function sync()
     {
