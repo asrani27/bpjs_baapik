@@ -61,12 +61,6 @@
                         <p>PESERTA TERDAFTAR</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>KUNJUNGAN PESERTA SAKIT</p>
-                    </a>
-                </li>
             </ul>
         </li>
 
@@ -132,6 +126,12 @@
                     <a href="/setting/data/bpjs" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>BPJS</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/setting/data/gantipass" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>GANTI PASSWORD</p>
                     </a>
                 </li>
             </ul>

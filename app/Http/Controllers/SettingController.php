@@ -14,6 +14,28 @@ class SettingController extends Controller
         return view('superadmin.bpjs.index', compact('data'));
     }
 
+    public function gantipass()
+    {
+        return view('superadmin.bpjs.gantipass');
+    }
+
+    public function updatepass(Request $req)
+    {
+        if ($req->pass1 != $req->pass2) {
+            toastr()->error('Password Tidak Sama');
+            return back();
+        }
+
+        Auth::user()->update([
+            'password' => bcrypt($req->pass1)
+        ]);
+
+        Auth::logout();
+        
+        toastr()->success('Login Dengan Password Baru');
+        return redirect('/');
+    }
+
     public function updatebpjs(Request $req)
     {
         $u = Auth::user();
@@ -57,7 +79,7 @@ class SettingController extends Controller
         // dd($data);
         try {
             $response = $client->request('GET', 'dokter/0/10', [
-                'headers' => $this->headers()
+                'headers' => headers()
             ]);
             Auth::user()->update(['is_connect' => 1]);
             toastr()->success('KONNEK');

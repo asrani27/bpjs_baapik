@@ -30,6 +30,9 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::post('setting/data/bpjs', [SettingController::class, 'updatebpjs']);
     Route::get('setting/data/bpjs/connect', [SettingController::class, 'connectBPJS']);
 
+    Route::get('setting/data/gantipass', [SettingController::class, 'gantipass']);
+    Route::post('setting/data/gantipass', [SettingController::class, 'updatepass']);
+
     Route::get('/datamaster/data/dokter', [DokterController::class, 'index']);
     Route::get('/datamaster/data/dokter/sync', [DokterController::class, 'sync']);
     Route::get('/datamaster/data/dokter/add', [DokterController::class, 'create']);

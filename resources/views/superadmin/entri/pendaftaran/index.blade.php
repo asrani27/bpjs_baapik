@@ -67,6 +67,7 @@
                             <th>Nama</th>
                             <th>Gender</th>
                             <th>Tgl Lahir</th>
+                            <th>Bridging?</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -82,6 +83,13 @@
                             <td>{{$item->nama}}</td>
                             <td>{{$item->sex}}</td>
                             <td>{{$item->tglLahir}}</td>
+                            <td>
+                                @if ($item->noUrut != null)
+                                <span class="badge badge-success">sudah</span>
+                                @else
+                                <span class="badge badge-danger">belum</span>
+                                @endif
+                            </td>
                             <td></td>
                         </tr>
                         @endforeach
@@ -93,14 +101,16 @@
     </div>
 </div>
 
-<div class="row">
+<div class=" row">
     <div class="col-12">
         <div class="card">
             <div class="card-body text-sm">
                 Informasi :<br />
-                <span class="text-success"> <i class="fa fa-check"></i></span> Data Bridging Dari PCARE
+                <span class="text-success"> <i class="fa fa-check"></i></span> Data
+                Bridging Dari PCARE
                 <br />
-                <span class="text-danger"> <i class="fa fa-times"></i></span> Data Lokal Dari Aplikasi
+                <span class="text-danger"> <i class="fa fa-times"></i></span> Data Lokal
+                Dari Aplikasi
 
             </div>
         </div>

@@ -32,6 +32,7 @@ class PendaftaranController extends Controller
                 $dataresp = json_decode((string)$response->getBody())->response;
 
                 if ($dataresp == null) {
+                    toastr()->success('TIDAK ADA DATA');
                     $req->flash();
                     return back();
                 } else {
