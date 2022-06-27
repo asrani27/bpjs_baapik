@@ -45,6 +45,7 @@ class BerandaController extends Controller
             $n->tglLahir = $d->tanggal_lahir;
             $n->kdPoli = $d->kdPoli;
             $n->nmPoli = $d->nmPoli;
+            $n->jenis = $d->jenis;
             $n->save();
 
             toastr()->success('sukses');

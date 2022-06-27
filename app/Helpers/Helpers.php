@@ -6,6 +6,16 @@ use GuzzleHttp\Client;
 use App\Models\BarangToko;
 use Illuminate\Support\Facades\Auth;
 
+function hitungUmur($umur)
+{
+    $lahir = new DateTime($umur);
+    $today = new DateTime('today');
+    $y = $today->diff($lahir)->y;
+    $m = $today->diff($lahir)->m;
+    $d = $today->diff($lahir)->d;
+    $umur = $y . " Tahun " . $m . " Bulan " . $d . " Hari";
+    return $umur;
+}
 function convertBulan($bulan)
 {
     if ($bulan == '01') {

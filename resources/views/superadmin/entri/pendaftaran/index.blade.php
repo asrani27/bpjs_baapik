@@ -58,15 +58,20 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-2">
-                <table id="example1" class="table table-bordered table-striped table-sm">
+                <table id="example1" class="table table-bordered table-sm">
                     <thead>
-                        <tr>
+                        <tr class="bg-primary text-sm">
                             <th>Tanggal</th>
                             <th>No</th>
+                            <th>NIK</th>
                             <th>No Kartu</th>
                             <th>Nama</th>
                             <th>Gender</th>
                             <th>Tgl Lahir</th>
+                            <th>Usia</th>
+                            <th>Jenis</th>
+                            <th>Poli</th>
+                            <th>Status</th>
                             <th>Bridging?</th>
                             <th>Aksi</th>
                         </tr>
@@ -76,18 +81,25 @@
                     @endphp
                     <tbody>
                         @foreach ($data as $key => $item)
-                        <tr>
+                        <tr style="font-size: 12px">
                             <td>{{$item->tglDaftar}}</td>
                             <td>{{$item->noUrut}}</td>
+                            <td>{{$item->nik}}</td>
                             <td>{{$item->noKartu}}</td>
                             <td>{{$item->nama}}</td>
                             <td>{{$item->sex}}</td>
                             <td>{{$item->tglLahir}}</td>
+                            <td>{{hitungUmur($item->tglLahir)}}</td>
+                            <td>{{$item->jenis}}</td>
+                            <td>{{$item->nmPoli}}</td>
+                            <td>-</td>
                             <td>
+                                @if ($item->jenis != 'UMUM')
                                 @if ($item->noUrut != null)
                                 <span class="badge badge-success">sudah</span>
                                 @else
                                 <span class="badge badge-danger">belum</span>
+                                @endif
                                 @endif
                             </td>
                             <td></td>

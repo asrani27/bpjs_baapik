@@ -34,7 +34,8 @@ class PendaftaranController extends Controller
                 if ($dataresp == null) {
                     toastr()->success('TIDAK ADA DATA');
                     $req->flash();
-                    return back();
+                    $data = T_pendaftaran::where('tglDaftar', Carbon::parse($req->tanggal)->format('d-m-Y'))->get();
+                    return view('superadmin.entri.pendaftaran.index', compact('data'));
                 } else {
                     foreach ($dataresp->list as $d) {
                         $check = T_pendaftaran::where('noUrut', $d->noUrut)->where('tglDaftar', $d->tgldaftar)->first();
