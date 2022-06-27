@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\M_poli;
 use GuzzleHttp\Client;
+use App\Models\M_pasien;
 use App\Models\T_antrian;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -64,7 +65,8 @@ class BerandaController extends Controller
     public function antrianumum()
     {
         $poli = M_poli::get();
-        return view('superadmin.antrianumum', compact('poli'));
+        $pasien = M_pasien::get();
+        return view('superadmin.antrianumum', compact('poli', 'pasien'));
     }
 
     public function checknomor()
@@ -105,6 +107,39 @@ class BerandaController extends Controller
         DB::beginTransaction();
         try {
             $attr = $req->all();
+            dd($attr);
+            $attr['kdPoli'] = M_poli::find($req->poli_id)->kdPoli;
+            $attr['nmPoli'] = M_poli::find($req->poli_id)->nmPoli;
+
+            $db = T_antrian::where('tanggal', $req->tanggal)->where('kdPoli', $attr['kdPoli'])->get();
+            if ($db->count() == 0) {
+                $antrian = antrean(1);
+            } else {
+                $antrian = antrean((int)$db->last()->nomor_antrian + 1);
+            }
+            $attr['nomor_antrian'] = $antrian;
+            $attr['pendaftaran_id'] = 0;
+            T_antrian::create($attr);
+            DB::commit();
+            toastr()->success('Pendaftaran Berhasil');
+            return redirect('/beranda');
+        } catch (\Exception $e) {
+            DB::rollback();
+            toastr()->error('Gagal Menyimpan');
+            return back();
+        }
+    }
+
+    public function storeantrianumum2(Request $req)
+    {
+        DB::beginTransaction();
+        try {
+            $pasien = M_pasien::find($req->pasien_id);
+            $attr = $req->all();
+            $attr['nik'] = $pasien->nik;
+            $attr['nama'] = $pasien->nama;
+            $attr['tanggal_lahir'] = $pasien->tglLahir;
+            $attr['jenis_kelamin'] = $pasien->sex;
             $attr['kdPoli'] = M_poli::find($req->poli_id)->kdPoli;
             $attr['nmPoli'] = M_poli::find($req->poli_id)->nmPoli;
 

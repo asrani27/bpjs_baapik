@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('daftarantrian', [BerandaController::class, 'antrian']);
     Route::get('daftarantrian/umum', [BerandaController::class, 'antrianumum']);
     Route::post('daftarantrian/umum', [BerandaController::class, 'storeantrianumum']);
+    Route::post('daftarantrian/umum/pernah', [BerandaController::class, 'storeantrianumum2']);
     Route::get('daftarantrian/bpjs', [BerandaController::class, 'antrianbpjs']);
     Route::post('daftarantrian/bpjs', [BerandaController::class, 'storeantrianbpjs']);
     Route::get('daftarantrian/bpjs/nomor', [BerandaController::class, 'checknomor']);
