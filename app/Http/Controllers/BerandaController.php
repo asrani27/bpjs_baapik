@@ -30,6 +30,9 @@ class BerandaController extends Controller
         T_antrian::find($id)->update([
             'status' => 1,
         ]);
+
+        // simpan ke pendaftaran;
+
         return back();
     }
 
@@ -107,7 +110,7 @@ class BerandaController extends Controller
         DB::beginTransaction();
         try {
             $attr = $req->all();
-            dd($attr);
+
             $attr['kdPoli'] = M_poli::find($req->poli_id)->kdPoli;
             $attr['nmPoli'] = M_poli::find($req->poli_id)->nmPoli;
 
@@ -119,6 +122,7 @@ class BerandaController extends Controller
             }
             $attr['nomor_antrian'] = $antrian;
             $attr['pendaftaran_id'] = 0;
+            $attr['jenis'] = 'UMUM';
             T_antrian::create($attr);
             DB::commit();
             toastr()->success('Pendaftaran Berhasil');
@@ -142,6 +146,7 @@ class BerandaController extends Controller
             $attr['jenis_kelamin'] = $pasien->sex;
             $attr['kdPoli'] = M_poli::find($req->poli_id)->kdPoli;
             $attr['nmPoli'] = M_poli::find($req->poli_id)->nmPoli;
+            $attr['jenis'] = 'UMUM';
 
             $db = T_antrian::where('tanggal', $req->tanggal)->where('kdPoli', $attr['kdPoli'])->get();
             if ($db->count() == 0) {
@@ -178,6 +183,7 @@ class BerandaController extends Controller
             }
             $attr['nomor_antrian'] = $antrian;
             $attr['pendaftaran_id'] = 0;
+            $attr['jenis'] = 'BPJS';
             T_antrian::create($attr);
             DB::commit();
             toastr()->success('Pendaftaran Berhasil');
