@@ -7,6 +7,7 @@ use App\Models\M_poli;
 use GuzzleHttp\Client;
 use App\Models\M_pasien;
 use App\Models\T_antrian;
+use App\Models\T_pendaftaran;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,13 +28,31 @@ class BerandaController extends Controller
 
     public function panggil($id)
     {
-        T_antrian::find($id)->update([
-            'status' => 1,
-        ]);
+        try {
 
-        // simpan ke pendaftaran;
+            T_antrian::find($id)->update([
+                'status' => 1,
+            ]);
 
-        return back();
+            $d = T_antrian::find($id);
+
+            // simpan ke pendaftaran;
+            $n = new T_pendaftaran;
+            $n->tglDaftar = Carbon::parse($d->tanggal)->format('d-m-Y');
+            $n->nik = $d->nik;
+            $n->nama = $d->nama;
+            $n->sex = $d->jenis_kelamin;
+            $n->tglLahir = $d->tanggal_lahir;
+            $n->kdPoli = $d->kdPoli;
+            $n->nmPoli = $d->nmPoli;
+            $n->save();
+
+            toastr()->success('sukses');
+            return back();
+        } catch (\Exception $e) {
+            toastr()->error('Gagal');
+            return back();
+        }
     }
 
     public function periksa($id)

@@ -82,10 +82,18 @@
                                     <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
                                     </button>
                                     <ul class="dropdown-menu">
+                                        @if ($item->status == 0)
                                         <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        @elseif ($item->status == 1)
                                         <li><a class="dropdown-item" href="/periksa/{{$item->id}}">Periksa</a></li>
                                         <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
                                         <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @elseif($item->status == 2)
+                                        <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @else
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </td>
@@ -145,10 +153,18 @@
                                     <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
                                     </button>
                                     <ul class="dropdown-menu">
+                                        @if ($item->status == 0)
                                         <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        @elseif ($item->status == 1)
                                         <li><a class="dropdown-item" href="/periksa/{{$item->id}}">Periksa</a></li>
                                         <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
                                         <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @elseif($item->status == 2)
+                                        <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @else
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </td>
@@ -208,10 +224,18 @@
                                     <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
                                     </button>
                                     <ul class="dropdown-menu">
+                                        @if ($item->status == 0)
                                         <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        @elseif ($item->status == 1)
                                         <li><a class="dropdown-item" href="/periksa/{{$item->id}}">Periksa</a></li>
                                         <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
                                         <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @elseif($item->status == 2)
+                                        <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @else
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </td>
@@ -271,10 +295,18 @@
                                     <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
                                     </button>
                                     <ul class="dropdown-menu">
+                                        @if ($item->status == 0)
                                         <li><a class="dropdown-item" href="/panggil/{{$item->id}}">Panggil</a></li>
+                                        @elseif ($item->status == 1)
                                         <li><a class="dropdown-item" href="/periksa/{{$item->id}}">Periksa</a></li>
                                         <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
                                         <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @elseif($item->status == 2)
+                                        <li><a class="dropdown-item" href="/selesai/{{$item->id}}">Selesai</a></li>
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @else
+                                        <li><a class="dropdown-item" href="/lewati/{{$item->id}}">Lewati</a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </td>
