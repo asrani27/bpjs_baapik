@@ -26,6 +26,13 @@
                 @csrf
                 <div class="card-body" style="display: block;">
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">KODE PROVIDER</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="kdProviderPeserta"
+                                value="{{$data->kdProviderPst->kdProvider}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">NO KARTU</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="noKartu" value="{{$data->noKartu}}" readonly>
@@ -34,7 +41,8 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">NIK</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nik" value="{{$data->noKTP}}" readonly>
+                            <input type="text" class="form-control" name="nik" value="{{$data->noKTP}}" maxlength="16"
+                                readonly>
                         </div>
                     </div>
 
@@ -74,11 +82,33 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">JENIS KUNJUNGAN</label>
+                        <div class="col-sm-10">
+                            <select name="kunjSakit" class="form-control" required>
+                                <option value="true" selected>KUNJUNGAN SAKIT</option>
+                                <option value="false">KUNJUNGAN SEHAT</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">JENIS RAWAT</label>
+                        <div class="col-sm-10">
+                            <select name="kdTkp" class="form-control" required>
+                                <option value="10" selected>RAWAT JALAN</option>
+                                <option value="20">RAWAT INAP</option>
+                                <option value="50">PROMOTIF</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">TANGGAL DAFTAR</label>
                         <div class="col-sm-10">
                             <input type="date" class="form-control" name="tanggal"
-                                value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" readonly>
+                                value="{{\Carbon\Carbon::parse($tgl)->format('Y-m-d')}}" readonly>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-block btn-primary">DAFTAR</button><br />

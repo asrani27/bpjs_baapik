@@ -88,6 +88,8 @@ function headers()
 
     $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
 
+    $head['accept']    = 'application/json';
+    $head['Content-Type']    = 'application/json';
     $head['X-cons-id'] = $cons_id;
     $head['X-Timestamp'] = $tStamp;
     $head['X-Signature'] = $encodedSignature;

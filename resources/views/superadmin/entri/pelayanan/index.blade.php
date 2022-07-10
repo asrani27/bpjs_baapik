@@ -10,52 +10,8 @@
 <div class="row">
     <div class="col-12">
         <div class="card card-primary card-outline">
-            <form method="post" action="/entri/data/pendaftaran">
-                @csrf
-                <div class="card-body">
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
-                        <div class="col-sm-10">
-
-                            <input type="date" class="form-control" name="tanggal"
-                                max="{{\Carbon\Carbon::now()->format('Y-m-d')}}"
-                                value="{{old('tanggal') == null ? \Carbon\Carbon::now()->format('Y-m-d') : old('tanggal')}}"
-                                required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputPassword3" class="col-sm-2 col-form-label">Jenis Kunjungan</label>
-                        <div class="col-sm-10">
-                            <select name="jenis_kunjungan" class="form-control">
-                                <option value="0" {{old('jenis_kunjungan')=='0' ? 'selected' :''}}>Semua</option>
-                                <option value="1" {{old('jenis_kunjungan')=='1' ? 'selected' :''}}>Kunjungan Sakit
-                                </option>
-                                <option value="2" {{old('jenis_kunjungan')=='2' ? 'selected' :''}}>Kunjungan Sehat
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-10">
-                            <button type="submit" type="button" name="button" value="tarik"
-                                class="btn bg-gradient-blue btn-sm">
-                                <i class="fas fa-sync"></i> Tarik Data</button>
-                            <button type="submit" type="button" name="button" value="tampil"
-                                class="btn bg-gradient-blue btn-sm">
-                                <i class="fas fa-sync"></i> Tampilkan Data</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">RIWAYAT PENDAFTARAN PESERTA</h3>
+                <h3 class="card-title">PELAYANAN PASIEN</h3>
                 <div class="card-tools">
                 </div>
             </div>
@@ -95,7 +51,7 @@
                             <td>{{hitungUmur($item->tglLahir)}}</td>
                             <td>{{$item->jenis}}</td>
                             <td>{{$item->nmPoli}}</td>
-                            <td>{{$item->status}}</td>
+                            <td>-</td>
                             <td>
                                 @if ($item->jenis != 'UMUM')
                                 @if ($item->noUrut != null)
@@ -106,20 +62,34 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($item->jenis != 'UMUM')
-                                @if ($item->noUrut != null)
-
-                                <a href="/entri/data/pendaftaran/delete/{{$item->id}}"
-                                    onclick="return confirm('Di PCare Juga akan ikut terhapus');">
-                                    <span class="badge badge-danger"><i class="fas fa-trash"></i>
-                                        Delete</span></a>
+                                @if ($item->anamnesa != null)
+                                <a href="/entri/data/pelayanan/anamnesa/{{$item->id}}"><span
+                                        class="badge badge-success">ANAMNESA</span></a>
                                 @else
-                                <a href="/entri/data/pendaftaran/sync/{{$item->id}}">
-                                    <span class="badge badge-success"><i class="fas fa-sync"></i>
-                                        Sinkron</span></a>
+                                <a href="/entri/data/pelayanan/anamnesa/{{$item->id}}"><span
+                                        class="badge badge-danger">ANAMNESA</span></a>
+                                @endif
 
+                                @if ($item->diagnosa->first() != null)
+                                <a href="/entri/data/pelayanan/diagnosa/{{$item->id}}"><span
+                                        class="badge badge-success">DIAGNOSA</span></a>
+                                @else
+                                <a href="/entri/data/pelayanan/diagnosa/{{$item->id}}"><span
+                                        class="badge badge-danger">DIAGNOSA</span></a>
                                 @endif
+
+
+                                <a href="/entri/data/pelayanan/resep/{{$item->id}}"><span
+                                        class="badge badge-danger">RESEP</span></a>
+
+                                @if ($item->tindakan->first() != null)
+                                <a href="/entri/data/pelayanan/tindakan/{{$item->id}}"><span
+                                        class="badge badge-success">TINDAKAN</span></a>
+                                @else
+                                <a href="/entri/data/pelayanan/tindakan/{{$item->id}}"><span
+                                        class="badge badge-danger">TINDAKAN</span></a>
                                 @endif
+
                             </td>
                         </tr>
                         @endforeach
@@ -131,19 +101,6 @@
     </div>
 </div>
 
-<div class=" row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body text-sm">
-                Informasi :<br />
-                <span class="badge badge-success"> hijau</span> Bridging Ke PCARE
-                <br />
-                <span class="badge badge-danger"> merah</span> Belum Bridging
-
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('js')

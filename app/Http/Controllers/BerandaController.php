@@ -23,7 +23,12 @@ class BerandaController extends Controller
         $gigi       = T_antrian::where('tanggal', $tgl)->where('kdPoli', '002')->get();
         $lansia     = T_antrian::where('tanggal', $tgl)->where('kdPoli', '012')->get();
         $kia        = T_antrian::where('tanggal', $tgl)->where('kdPoli', '003')->get();
-        return view('superadmin.beranda', compact('umum', 'gigi', 'lansia', 'kia'));
+
+        $lab        = T_antrian::where('tanggal', $tgl)->where('kdPoli', '004')->get();
+        $hv        = T_antrian::where('tanggal', $tgl)->where('kdPoli', '020')->get();
+        $konseling = T_antrian::where('tanggal', $tgl)->where('kdPoli', '021')->get();
+        $ko        = T_antrian::where('tanggal', $tgl)->where('kdPoli', '999')->get();
+        return view('superadmin.beranda', compact('umum', 'gigi', 'lansia', 'kia', 'lab', 'hv', 'konseling', 'ko'));
     }
 
     public function panggil($id)
@@ -39,13 +44,17 @@ class BerandaController extends Controller
             // simpan ke pendaftaran;
             $n = new T_pendaftaran;
             $n->tglDaftar = Carbon::parse($d->tanggal)->format('d-m-Y');
-            $n->nik = $d->nik;
-            $n->nama = $d->nama;
-            $n->sex = $d->jenis_kelamin;
-            $n->tglLahir = $d->tanggal_lahir;
-            $n->kdPoli = $d->kdPoli;
-            $n->nmPoli = $d->nmPoli;
-            $n->jenis = $d->jenis;
+            $n->kdProviderPeserta = $d->kdProviderPeserta;
+            $n->kunjSakit         = $d->kunjSakit;
+            $n->kdTkp             = $d->kdTkp;
+            $n->noKartu           = $d->noKartu;
+            $n->nik               = $d->nik;
+            $n->nama              = $d->nama;
+            $n->sex               = $d->jenis_kelamin;
+            $n->tglLahir          = $d->tanggal_lahir;
+            $n->kdPoli            = $d->kdPoli;
+            $n->nmPoli            = $d->nmPoli;
+            $n->jenis             = $d->jenis;
             $n->save();
 
             toastr()->success('sukses');
@@ -94,6 +103,8 @@ class BerandaController extends Controller
 
     public function checknomor()
     {
+        $tgl = Carbon::now();
+
         $nomor = request()->nomor;
 
         $user = Auth::user();
@@ -117,7 +128,8 @@ class BerandaController extends Controller
             }
             $poli = M_poli::get();
             $data = json_decode((string)$response->getBody())->response;
-            return view('superadmin.antrianbpjs2', compact('data', 'poli'));
+
+            return view('superadmin.antrianbpjs2', compact('data', 'poli', 'tgl'));
         } catch (\Exception $e) {
 
             generateHeaders();
@@ -204,6 +216,7 @@ class BerandaController extends Controller
             $attr['nomor_antrian'] = $antrian;
             $attr['pendaftaran_id'] = 0;
             $attr['jenis'] = 'BPJS';
+
             T_antrian::create($attr);
             DB::commit();
             toastr()->success('Pendaftaran Berhasil');

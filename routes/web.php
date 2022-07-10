@@ -12,7 +12,9 @@ use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TindakanController;
 use App\Http\Controllers\KesadaranController;
+use App\Http\Controllers\PelayananController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\PesertaTerdaftarController;
 
 Route::get('/', [LoginController::class, 'showlogin']);
 Route::post('/login', [LoginController::class, 'login']);
@@ -65,6 +67,27 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 
     Route::get('/entri/data/pendaftaran', [PendaftaranController::class, 'index']);
     Route::post('/entri/data/pendaftaran', [PendaftaranController::class, 'sync']);
+    Route::get('/entri/data/pendaftaran/sync/{id}', [PendaftaranController::class, 'bridgingPendaftaran']);
+    Route::get('/entri/data/pendaftaran/delete/{id}', [PendaftaranController::class, 'delete']);
+
+    Route::get('/entri/data/pelayanan', [PelayananController::class, 'index']);
+    Route::post('/entri/data/pelayanan', [PelayananController::class, 'sync']);
+
+    Route::get('/entri/data/pelayanan/anamnesa/{id}', [PelayananController::class, 'anamnesa']);
+    Route::post('/entri/data/pelayanan/anamnesa/{id}', [PelayananController::class, 'storeAnamnesa']);
+    Route::post('/entri/data/pelayanan/anamnesa/{id}/update', [PelayananController::class, 'updateAnamnesa']);
+
+    Route::get('/entri/data/pelayanan/diagnosa/{id}', [PelayananController::class, 'diagnosa']);
+    Route::post('/entri/data/pelayanan/diagnosa/{id}', [PelayananController::class, 'storeDiagnosa']);
+    Route::get('/entri/data/pelayanan/diagnosa/{id}/delete', [PelayananController::class, 'deleteDiagnosa']);
+
+    Route::get('/entri/data/pelayanan/resep/{id}', [PelayananController::class, 'resep']);
+    Route::post('/entri/data/pelayanan/resep/{id}', [PelayananController::class, 'storeResep']);
+
+    Route::get('/entri/data/pelayanan/tindakan/{id}', [PelayananController::class, 'tindakan']);
+    Route::post('/entri/data/pelayanan/tindakan/{id}', [PelayananController::class, 'storeTindakan']);
+    Route::get('/entri/data/pelayanan/tindakan/{id}/delete', [PelayananController::class, 'deleteTindakan']);
+
     //Route::get('/entri/data/pendaftaran/sync', [PendaftaranController::class, 'sync']);
 
     Route::get('/entri/data/pasien', [PasienController::class, 'index']);
@@ -73,6 +96,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::post('/entri/data/pasien/add', [PasienController::class, 'store']);
     Route::get('/entri/data/pasien/sync', [PasienController::class, 'sync']);
 
+    Route::get('/lihat/data/peserta/terdaftar', [PesertaTerdaftarController::class, 'index']);
 
     Route::get('/panggil/{id}', [BerandaController::class, 'panggil']);
     Route::get('/periksa/{id}', [BerandaController::class, 'periksa']);

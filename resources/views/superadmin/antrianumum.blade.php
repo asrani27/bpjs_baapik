@@ -87,7 +87,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">NIK</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nik" required>
+                            <input type="text" class="form-control" name="nik" required maxlength="16">
                         </div>
                     </div>
 

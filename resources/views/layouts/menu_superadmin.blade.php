@@ -37,12 +37,12 @@
                         <p>PENDAFTARAN</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a href="/entri/data/pelayanan" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>PELAYANAN</p>
                     </a>
-                </li> --}}
+                </li>
             </ul>
         </li>
 
@@ -56,7 +56,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/lihat/data/peserta/terdaftar" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>PESERTA TERDAFTAR</p>
                     </a>
