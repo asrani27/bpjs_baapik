@@ -31,7 +31,7 @@ class SettingController extends Controller
         ]);
 
         Auth::logout();
-        
+
         toastr()->success('Login Dengan Password Baru');
         return redirect('/');
     }
@@ -53,14 +53,14 @@ class SettingController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cons_id == null) {
-            toastr()->error('CONS ID KOSONG');
-            return back();
-        }
-        if ($user->secret_key == null) {
-            toastr()->error('SECRET KEY KOSONG');
-            return back();
-        }
+        // if ($user->cons_id == null) {
+        //     toastr()->error('CONS ID KOSONG');
+        //     return back();
+        // }
+        // if ($user->secret_key == null) {
+        //     toastr()->error('SECRET KEY KOSONG');
+        //     return back();
+        // }
         if ($user->user_pcare == null) {
             toastr()->error('USER PCARE KOSONG');
             return back();
