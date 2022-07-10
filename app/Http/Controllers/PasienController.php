@@ -13,7 +13,6 @@ class PasienController extends Controller
     {
         try {
             $data = M_pasien::get();
-            toastr()->success('Berhasil Dihapus');
             return view('superadmin.entri.pasien.index', compact('data'));
         } catch (\Exception $e) {
             toastr()->error('Gagal Di Hapus');
