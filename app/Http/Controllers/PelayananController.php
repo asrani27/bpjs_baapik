@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\M_diagnosa;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use App\Models\M_dokter;
 use App\Models\T_anamnesa;
 use App\Models\M_kesadaran;
 use App\Models\T_pelayanan;
-use Illuminate\Http\Request;
 use App\Models\M_status_pulang;
 use App\Models\M_tindakan;
 use App\Models\T_diagnosa;
