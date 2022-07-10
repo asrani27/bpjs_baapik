@@ -9,6 +9,7 @@ class T_Pelayanan extends Model
 {
     use HasFactory;
     protected $table = 't_pendaftaran';
+
     protected $guarded = ['id'];
 
     public function anamnesa()
