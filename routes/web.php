@@ -16,7 +16,7 @@ use App\Http\Controllers\PelayananController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PesertaTerdaftarController;
 
-Route::get('/', [LoginController::class, 'showlogin']);
+Route::get('/', [LoginController::class, 'showlogin'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
