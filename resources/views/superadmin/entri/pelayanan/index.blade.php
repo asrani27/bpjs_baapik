@@ -10,6 +10,31 @@
 <div class="row">
     <div class="col-12">
         <div class="card card-primary card-outline">
+            <form method="post" action="/entri/data/pelayanan">
+                @csrf
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" name="tanggal"
+                                max="{{\Carbon\Carbon::now()->format('Y-m-d')}}"
+                                value="{{old('tanggal') == null ? \Carbon\Carbon::now()->format('Y-m-d') : old('tanggal')}}"
+                                required>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" type="button" name="button" value="tampil"
+                                class="btn bg-gradient-blue btn">
+                                <i class="fas fa-sync"></i> Tampilkan Data</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary card-outline">
             <div class="card-header">
                 <h3 class="card-title">PELAYANAN PASIEN</h3>
                 <div class="card-tools">

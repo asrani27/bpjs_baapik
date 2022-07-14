@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('/entri/data/pendaftaran/delete/{id}', [PendaftaranController::class, 'delete']);
 
     Route::get('/entri/data/pelayanan', [PelayananController::class, 'index']);
-    Route::post('/entri/data/pelayanan', [PelayananController::class, 'sync']);
+    Route::post('/entri/data/pelayanan', [PelayananController::class, 'tanggal']);
 
     Route::get('/entri/data/pelayanan/anamnesa/{id}', [PelayananController::class, 'anamnesa']);
     Route::post('/entri/data/pelayanan/anamnesa/{id}', [PelayananController::class, 'storeAnamnesa']);

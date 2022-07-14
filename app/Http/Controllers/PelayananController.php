@@ -18,7 +18,16 @@ class PelayananController extends Controller
 {
     public function index()
     {
-        $data = T_pelayanan::orderBy('id', 'DESC')->get();
+        $today = Carbon::now()->format('d-m-Y');
+        $data = T_pelayanan::orderBy('id', 'DESC')->where('tglDaftar', $today)->get();
+        return view('superadmin.entri.pelayanan.index', compact('data'));
+    }
+
+    public function tanggal(Request $req)
+    {
+        $tanggal = Carbon::parse($req->tanggal)->format('d-m-Y');
+        $data = T_pelayanan::orderBy('id', 'DESC')->where('tglDaftar', $tanggal)->get();
+        $req->flash();
         return view('superadmin.entri.pelayanan.index', compact('data'));
     }
 
