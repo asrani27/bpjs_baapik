@@ -103,15 +103,19 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">TINGGI BADAN</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="tinggiBadan" class="form-control" required value="0">
+                        <div class="col-sm-1">
+                            <input type="text" name="tinggiBadan" id="tb" class="form-control" required value="0"
+                                onKeyPress="edValueKeyPress()" onKeyUp="edValueKeyPress()">
                         </div>
+                        <label class="col-sm-2 col-form-label">cm</label>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">BERAT BADAN</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="beratBadan" class="form-control" required value="0">
+                        <div class="col-sm-1">
+                            <input type="text" name="beratBadan" id="bb" class="form-control" required value="0"
+                                onKeyPress="edValueKeyPress()" onKeyUp="edValueKeyPress()">
                         </div>
+                        <label class="col-sm-2 col-form-label">kg</label>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">LINGKAR PERUT</label>
@@ -122,7 +126,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">IMT</label>
                         <div class="col-sm-10">
-                            <input type="text" name="imt" class="form-control" readonly value="0">
+                            <input type="text" name="imt" class="form-control" id="lblValue" readonly value="0">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -185,5 +189,26 @@
 @endsection
 
 @push('js')
+<script>
+    function edValueKeyPress()
+    {
+        var tb = document.getElementById("tb");
+        var stb = tb.value**2;
+    
+        var bb = document.getElementById("bb");
+        var sbb = bb.value;
 
+        var result = (sbb / stb) * 10000;
+        var lblValue = document.getElementById("lblValue").value = result.toFixed(2);
+    }
+</script>
+<script>
+    function hanyaAngka(evt) {
+      var charCode = (evt.which) ? evt.which : event.keyCode
+       if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+        return false;
+      return true;
+    }
+</script>
 @endpush

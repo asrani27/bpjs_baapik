@@ -11,10 +11,10 @@
     <div class="col-12">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Data Ruang</h3>
+                <h3 class="card-title">Data Obat</h3>
                 <div class="card-tools">
-                    <a href="/datamaster/data/poli/sync" type="button" class="btn bg-gradient-blue btn-sm">
-                        <i class="fas fa-sync"></i> Sinkron Data</a>
+                    <a href="/datamaster/data/obat/add" type="button" class="btn bg-gradient-blue btn-sm">
+                        <i class="fas fa-plus"></i> Tambah Data</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -23,9 +23,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Ruang</th>
-                            <th>Nama Ruang</th>
-                            <th>poli Sakit?</th>
+                            <th>Kode Obat</th>
+                            <th>Nama Obat</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     @php
@@ -35,29 +35,21 @@
                         @foreach ($data as $key => $item)
                         <tr>
                             <td>{{$no++}}</td>
-                            <td>{{$item->kdPoli}}</td>
-                            <td>{{$item->nmPoli}}</td>
-                            <td>{{$item->poliSakit == 1 ? "Y":"T"}}</td>
+                            <td>{{$item->kode}}</td>
+                            <td>{{$item->nama}}</td>
+                            <td>
+
+                                <a href="/datamaster/data/obat/edit/{{$item->id}}" class="btn btn-xs btn-success"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="/datamaster/data/obat/delete/{{$item->id}}" class="btn btn-xs btn-danger"
+                                    onclick="return confirm('yakin DI Hapus?');"><i class="fas fa-trash"></i></a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
             <!-- /.card-body -->
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body text-sm">
-                Informasi :<br />
-                <span class="text-success"> <i class="fa fa-check"></i></span> Data Bridging Dari PCARE
-                <br />
-                <span class="text-danger"> <i class="fa fa-times"></i></span> Data Lokal Dari Aplikasi
-
-            </div>
         </div>
     </div>
 </div>

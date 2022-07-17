@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class T_resep extends Model
+class M_obat extends Model
 {
     use HasFactory;
-    protected $table = 't_resep';
+    protected $table = 'm_obat';
     protected $guarded = ['id'];
 }

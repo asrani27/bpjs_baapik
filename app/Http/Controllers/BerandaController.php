@@ -33,6 +33,7 @@ class BerandaController extends Controller
 
     public function panggil($id)
     {
+        DB::beginTransaction();
         try {
 
             T_antrian::find($id)->update([
@@ -57,9 +58,14 @@ class BerandaController extends Controller
             $n->jenis             = $d->jenis;
             $n->save();
 
+            $d->update([
+                't_pendaftaran_id' => $n->id,
+            ]);
+            DB::commit();
             toastr()->success('sukses');
             return back();
         } catch (\Exception $e) {
+            DB::rollback();
             toastr()->error('Gagal');
             return back();
         }

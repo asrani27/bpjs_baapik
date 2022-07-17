@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">DOKTER</label>
+                        <label class="col-sm-2 col-form-label">PETUGAS MEDIS</label>
                         <div class="col-sm-10">
                             <select name="m_dokter_id" class="form-control" required>
                                 <option value="">-pilih-</option>
@@ -105,29 +105,34 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">TINGGI BADAN</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="tinggiBadan" class="form-control"
-                                value="{{$anamnesa->tinggiBadan}}" required>
+                        <div class="col-sm-1">
+                            <input type="text" name="tinggiBadan" id="tb" class="form-control" required
+                                value="{{$anamnesa->tinggiBadan}}" onKeyPress="edValueKeyPress()"
+                                onKeyUp="edValueKeyPress()">
                         </div>
+                        <label class="col-sm-2 col-form-label">cm</label>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">BERAT BADAN</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="beratBadan" class="form-control" value="{{$anamnesa->beratBadan}}"
-                                required>
+                        <div class="col-sm-1">
+                            <input type="text" name="beratBadan" id="bb" class="form-control" required
+                                onKeyPress="edValueKeyPress()" onKeyUp="edValueKeyPress()"
+                                value="{{$anamnesa->beratBadan}}">
                         </div>
+                        <label class="col-sm-2 col-form-label">kg</label>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">LINGKAR PERUT</label>
                         <div class="col-sm-10">
-                            <input type="text" name="lingkarPerut" class="form-control"
-                                value="{{$anamnesa->lingkarPerut}}" required>
+                            <input type="text" name="lingkarPerut" class="form-control" required
+                                value="{{$anamnesa->lingkarPerut}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">IMT</label>
                         <div class="col-sm-10">
-                            <input type="text" name="imt" class="form-control" value="{{$anamnesa->imt}}" readonly>
+                            <input type="text" name="imt" class="form-control" id="lblValue" readonly
+                                value="{{$anamnesa->imt}}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -194,4 +199,17 @@
 
 @push('js')
 
+<script>
+    function edValueKeyPress()
+    {
+        var tb = document.getElementById("tb");
+        var stb = tb.value**2;
+    
+        var bb = document.getElementById("bb");
+        var sbb = bb.value;
+
+        var result = (sbb / stb) * 10000;
+        var lblValue = document.getElementById("lblValue").value = result.toFixed(2);
+    }
+</script>
 @endpush

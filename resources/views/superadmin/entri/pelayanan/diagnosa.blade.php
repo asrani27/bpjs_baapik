@@ -121,7 +121,8 @@
                             <td>{{$item->diag->kdDiag}}</td>
                             <td>{{$item->diag->nmDiag}}</td>
                             <td>
-                                <a href="/entri/data/pelayanan/diagnosa/{{$item->id}}/delete"><span
+                                <a href="/entri/data/pelayanan/diagnosa/{{$item->id}}/delete"
+                                    onclick="return confirm('Yakin Di Hapus?');"><span
                                         class="badge badge-danger">delete</span></a>
                             </td>
                         </tr>

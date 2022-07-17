@@ -82,7 +82,7 @@
                 <li class="nav-item">
                     <a href="/datamaster/data/poli" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>POLI</p>
+                        <p>RUANG</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -107,6 +107,12 @@
                     <a href="/datamaster/data/tindakan" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>TINDAKAN</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/datamaster/data/obat" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>OBAT</p>
                     </a>
                 </li>
             </ul>

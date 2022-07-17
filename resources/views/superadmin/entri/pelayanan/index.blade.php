@@ -76,7 +76,7 @@
                             <td>{{hitungUmur($item->tglLahir)}}</td>
                             <td>{{$item->jenis}}</td>
                             <td>{{$item->nmPoli}}</td>
-                            <td>-</td>
+                            <td>{{$item->status}}</td>
                             <td>
                                 @if ($item->jenis != 'UMUM')
                                 @if ($item->noUrut != null)
@@ -115,6 +115,11 @@
                                         class="badge badge-danger">TINDAKAN</span></a>
                                 @endif
 
+                                @if ($item->status != 'Sudah dilayani')
+                                <a href="/entri/data/pelayanan/selesai/{{$item->id}}"
+                                    onclick="return confirm('Sudah Selesai?');"><span
+                                        class="badge badge-primary">SELESAI</span></a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

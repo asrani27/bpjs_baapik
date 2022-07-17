@@ -13,6 +13,8 @@ use App\Models\M_tindakan;
 use App\Models\T_diagnosa;
 use App\Models\T_pelayanan;
 use App\Models\T_tindakan;
+use App\Models\M_obat;
+use App\Models\T_resep;
 
 class PelayananController extends Controller
 {
@@ -57,8 +59,10 @@ class PelayananController extends Controller
 
     public function resep($id)
     {
-        toastr()->info('Dalam Pengembangan');
-        return back();
+        $data = T_pelayanan::find($id);
+        $obat = M_obat::get();
+        $myResep = $data->resep;
+        return view('superadmin.entri.pelayanan.resep', compact('data', 'obat', 'myResep'));
     }
 
     public function tindakan($id)
@@ -107,6 +111,14 @@ class PelayananController extends Controller
 
     public function storeResep(Request $req, $id)
     {
+        $attr = $req->all();
+        $attr['kode'] = M_obat::find($req->m_obat_id)->kode;
+        $attr['nama'] = M_obat::find($req->m_obat_id)->nama;
+
+        T_resep::create($attr);
+
+        toastr()->success('Resep Berhasil DiSimpan');
+        return back();
     }
 
     public function storeTindakan(Request $req, $id)
@@ -131,6 +143,15 @@ class PelayananController extends Controller
     {
         T_tindakan::find($id)->delete();
         toastr()->success('Berhasil Dihapus');
+        return back();
+    }
+
+    public function selesai($id)
+    {
+        T_pelayanan::find($id)->update([
+            'status' => 'Sudah dilayani'
+        ]);
+        toastr()->success('Selesai');
         return back();
     }
 }

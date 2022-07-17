@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DokterController;
@@ -44,6 +45,13 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::post('/datamaster/data/dokter/edit/{id}', [DokterController::class, 'update']);
     Route::get('/datamaster/data/dokter/delete/{id}', [DokterController::class, 'delete']);
 
+    Route::get('/datamaster/data/obat', [ObatController::class, 'index']);
+    Route::get('/datamaster/data/obat/add', [ObatController::class, 'create']);
+    Route::post('/datamaster/data/obat/add', [ObatController::class, 'store']);
+    Route::get('/datamaster/data/obat/edit/{id}', [ObatController::class, 'edit']);
+    Route::post('/datamaster/data/obat/edit/{id}', [ObatController::class, 'update']);
+    Route::get('/datamaster/data/obat/delete/{id}', [ObatController::class, 'delete']);
+
     Route::get('/datamaster/data/poli', [PoliController::class, 'index']);
     Route::get('/datamaster/data/poli/sync', [PoliController::class, 'sync']);
     Route::get('/datamaster/data/poli/add', [PoliController::class, 'create']);
@@ -83,11 +91,13 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 
     Route::get('/entri/data/pelayanan/resep/{id}', [PelayananController::class, 'resep']);
     Route::post('/entri/data/pelayanan/resep/{id}', [PelayananController::class, 'storeResep']);
+    Route::get('/entri/data/pelayanan/resep/{id}/delete', [PelayananController::class, 'deleteResep']);
 
     Route::get('/entri/data/pelayanan/tindakan/{id}', [PelayananController::class, 'tindakan']);
     Route::post('/entri/data/pelayanan/tindakan/{id}', [PelayananController::class, 'storeTindakan']);
     Route::get('/entri/data/pelayanan/tindakan/{id}/delete', [PelayananController::class, 'deleteTindakan']);
 
+    Route::get('/entri/data/pelayanan/selesai/{id}', [PelayananController::class, 'selesai']);
     //Route::get('/entri/data/pendaftaran/sync', [PendaftaranController::class, 'sync']);
 
     Route::get('/entri/data/pasien', [PasienController::class, 'index']);
