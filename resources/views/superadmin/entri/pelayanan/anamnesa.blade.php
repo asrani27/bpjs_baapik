@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">DOKTER</label>
+                        <label class="col-sm-2 col-form-label">PETUGAS MEDIS</label>
                         <div class="col-sm-10">
                             <select name="m_dokter_id" class="form-control" required>
                                 <option value="">-pilih-</option>
