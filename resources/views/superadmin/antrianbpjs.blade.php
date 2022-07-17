@@ -26,9 +26,9 @@
                 @csrf
                 <div class="card-body" style="display: block;">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">NO KARTU</label>
+                        <label class="col-sm-2 col-form-label">NO KARTU / NIK KTP</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nomor" required>
+                            <input type="text" class="form-control" name="nomor" value="{{old('nomor')}}" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-block btn-primary">CHECK NOMOR</button><br />

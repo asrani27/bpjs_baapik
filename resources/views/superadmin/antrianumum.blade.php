@@ -87,7 +87,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">NIK</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nik" required maxlength="16">
+                            <input type="text" class="form-control" name="nik" maxlength="16">
                         </div>
                     </div>
 
@@ -111,12 +111,24 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">TANGGAL LAHIR</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" name="tanggal_lahir" required>
+                            <input type="date" class="form-control" name="tanggal_lahir">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">POLI</label>
+                        <label class="col-sm-2 col-form-label">ALAMAT</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="alamat" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">TELP</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" name="telp" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">RUANG</label>
                         <div class="col-sm-10">
                             <select name="poli_id" class="form-control">
                                 <option value="">-pilih-</option>

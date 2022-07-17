@@ -28,6 +28,8 @@
                             <th>Nama</th>
                             <th>Tanggal Lahir</th>
                             <th>Gender</th>
+                            <th>Alamat</th>
+                            <th>Telp</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -36,13 +38,15 @@
                     @endphp
                     <tbody>
                         @foreach ($data as $key => $item)
-                        <tr>
+                        <tr style="font-size: 12px">
                             <td>{{$no++}}</td>
                             <td>{{$item->nik}}</td>
                             <td>{{$item->noKartu}}</td>
                             <td>{{$item->nama}}</td>
                             <td>{{$item->tglLahir}}</td>
                             <td>{{$item->sex}}</td>
+                            <td>{{$item->alamat}}</td>
+                            <td>{{$item->telp}}</td>
                             <td>
                                 <a href="/entri/data/pasien/delete/{{$item->id}}" class="btn btn-xs btn-danger"
                                     onclick="return confirm('yakin DI Hapus?');"><i class="fas fa-trash"></i></a>

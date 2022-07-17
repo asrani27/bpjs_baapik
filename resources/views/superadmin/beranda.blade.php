@@ -38,7 +38,7 @@
     <div class="col-md-3">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">ANTRIAN POLI UMUM</h3>
+                <h3 class="card-title">ANTRIAN RUANG UMUM</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -109,7 +109,7 @@
     <div class="col-md-3">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">ANTRIAN POLI LANSIA</h3>
+                <h3 class="card-title">ANTRIAN RUANG LANSIA</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -180,7 +180,7 @@
     <div class="col-md-3">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">ANTRIAN POLI GIGI & MULUT</h3>
+                <h3 class="card-title">ANTRIAN RUANG GIGI & MULUT</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -251,7 +251,7 @@
     <div class="col-md-3">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">ANTRIAN POLI KIA</h3>
+                <h3 class="card-title">ANTRIAN RUANG KIA</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -396,7 +396,7 @@
     <div class="col-md-3">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">ANTRIAN POLI HOME VISIT</h3>
+                <h3 class="card-title">ANTRIAN RUANG HOME VISIT</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -467,7 +467,7 @@
     <div class="col-md-3">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">ANTRIAN POLI KONSELING</h3>
+                <h3 class="card-title">ANTRIAN RUANG KONSELING</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>

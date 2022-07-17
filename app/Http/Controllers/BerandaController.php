@@ -129,6 +129,12 @@ class BerandaController extends Controller
             $poli = M_poli::get();
             $data = json_decode((string)$response->getBody())->response;
 
+            if ($data->kdProviderPst->kdProvider != substr($user->user_pcare, 0, 8)) {
+                toastr()->error('TIDAK BISA MENDAFTAR DI FASKES ' . strtoupper($user->name) . ', ANDA TERDAFTAR DI FASKES ' . $data->kdProviderPst->nmProvider);
+                request()->flash();
+                return back();
+            }
+
             return view('superadmin.antrianbpjs2', compact('data', 'poli', 'tgl'));
         } catch (\Exception $e) {
 

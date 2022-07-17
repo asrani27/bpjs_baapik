@@ -28,14 +28,14 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">NIK</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nik" required>
+                            <input type="text" class="form-control" name="nik">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">No BPJS</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="noKartu" required>
+                            <input type="text" class="form-control" name="noKartu">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -59,6 +59,19 @@
                         <label class="col-sm-2 col-form-label">TANGGAL LAHIR</label>
                         <div class="col-sm-10">
                             <input type="date" class="form-control" name="tglLahir" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">ALAMAT</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="alamat" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">TELP</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="telp" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-block btn-primary">SIMPAN</button><br />
