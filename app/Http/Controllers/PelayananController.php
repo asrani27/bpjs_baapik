@@ -14,6 +14,7 @@ use App\Models\T_diagnosa;
 use App\Models\T_pelayanan;
 use App\Models\T_tindakan;
 use App\Models\M_obat;
+use App\Models\T_antrian;
 use App\Models\T_resep;
 
 class PelayananController extends Controller
@@ -150,6 +151,9 @@ class PelayananController extends Controller
     {
         T_pelayanan::find($id)->update([
             'status' => 'Sudah dilayani'
+        ]);
+        T_antrian::where('t_pendaftaran_id', $id)->update([
+            'status' => 3,
         ]);
         toastr()->success('Selesai');
         return back();
