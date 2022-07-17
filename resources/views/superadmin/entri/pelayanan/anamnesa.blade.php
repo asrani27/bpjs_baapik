@@ -166,6 +166,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">KETERANGAN</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="keterangan" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">STATUS PULANG</label>
                         <div class="col-sm-10">
                             <select name="m_status_pulang_id" class="form-control" required>
