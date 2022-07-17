@@ -23,6 +23,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>No RM</th>
                             <th>NIK</th>
                             <th>No Kartu</th>
                             <th>Nama</th>
@@ -40,6 +41,7 @@
                         @foreach ($data as $key => $item)
                         <tr style="font-size: 12px">
                             <td>{{$no++}}</td>
+                            <td>{{$item->noRM}}</td>
                             <td>{{$item->nik}}</td>
                             <td>{{$item->noKartu}}</td>
                             <td>{{$item->nama}}</td>
@@ -48,6 +50,8 @@
                             <td>{{$item->alamat}}</td>
                             <td>{{$item->telp}}</td>
                             <td>
+                                <a href="/entri/data/pasien/edit/{{$item->id}}" class="btn btn-xs btn-success"><i
+                                        class="fas fa-edit"></i></a>
                                 <a href="/entri/data/pasien/delete/{{$item->id}}" class="btn btn-xs btn-danger"
                                     onclick="return confirm('yakin DI Hapus?');"><i class="fas fa-trash"></i></a>
                             </td>

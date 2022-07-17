@@ -13,7 +13,7 @@
     <div class="col-md-12">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">TAMBAH PASIEN</h3>
+                <h3 class="card-title">EDIT PASIEN</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -22,32 +22,32 @@
                 <!-- /.card-tools -->
             </div>
             <!-- /.card-header -->
-            <form method="post" action="/entri/data/pasien/add">
+            <form method="post" action="/entri/data/pasien/edit/{{$data->id}}">
                 @csrf
                 <div class="card-body" style="display: block;">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">NIK</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nik">
+                            <input type="text" class="form-control" name="nik" value="{{$data->nik}}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">No BPJS</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="noKartu">
+                            <input type="text" class="form-control" name="noKartu" value="{{$data->noKartu}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">No RM (Rekam Medis)</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="noRM">
+                            <input type="text" class="form-control" name="noRM" value="{{$data->noRM}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">NAMA PASIEN</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama" required>
+                            <input type="text" class="form-control" name="nama" value="{{$data->nama}}" required>
                         </div>
                     </div>
 
@@ -56,31 +56,32 @@
                         <div class="col-sm-10">
                             <select name="sex" class="form-control" required>
                                 <option value="">-pilih-</option>
-                                <option value="L"> Laki-laki</option>
-                                <option value="P"> Perempuan</option>
+                                <option value="L" {{$data->sex == 'L' ? 'selected':''}}> Laki-laki</option>
+                                <option value="P" {{$data->sex == 'P' ? 'selected':''}}> Perempuan</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">TANGGAL LAHIR</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" name="tglLahir" required>
+                            <input type="date" class="form-control" name="tglLahir" value="{{$data->tglLahir}}"
+                                required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">ALAMAT</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="alamat" required>
+                            <input type="text" class="form-control" name="alamat" value="{{$data->alamat}}" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">TELP</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="telp" required>
+                            <input type="text" class="form-control" name="telp" value="{{$data->telp}}" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-block btn-primary">SIMPAN</button><br />
+                    <button type="submit" class="btn btn-block btn-primary">UPDATE</button><br />
                 </div>
             </form>
             <!-- /.card-body -->

@@ -105,6 +105,8 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('/entri/data/pasien/delete/{id}', [PasienController::class, 'delete']);
     Route::post('/entri/data/pasien/add', [PasienController::class, 'store']);
     Route::get('/entri/data/pasien/sync', [PasienController::class, 'sync']);
+    Route::get('/entri/data/pasien/edit/{id}', [PasienController::class, 'edit']);
+    Route::post('/entri/data/pasien/edit/{id}', [PasienController::class, 'update']);
 
     Route::get('/lihat/data/peserta/terdaftar', [PesertaTerdaftarController::class, 'index']);
 

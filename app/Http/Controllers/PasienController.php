@@ -30,6 +30,12 @@ class PasienController extends Controller
         return view('superadmin.entri.pasien.create');
     }
 
+    public function edit($id)
+    {
+        $data =  M_pasien::find($id);
+        return view('superadmin.entri.pasien.edit', compact('data'));
+    }
+
     public function store(Request $req)
     {
         $checkNIK = M_pasien::where('nik', $req->nik)->first();
@@ -45,6 +51,13 @@ class PasienController extends Controller
 
         M_Pasien::create($req->all());
         toastr()->success('Berhasil Disimpan');
+        return redirect('/entri/data/pasien');
+    }
+
+    public function update(Request $req, $id)
+    {
+        M_pasien::find($id)->update($req->all());
+        toastr()->success('Berhasil Diupdate');
         return redirect('/entri/data/pasien');
     }
     public function sync()
