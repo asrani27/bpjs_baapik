@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\M_obat;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ObatController extends Controller
 {
@@ -48,5 +49,20 @@ class ObatController extends Controller
 
         toastr()->success('Berhasil Di Update');
         return redirect('/datamaster/data/obat');
+    }
+
+    public function tarik()
+    {
+        $data = DB::connection('banjarmasinindah')->table('m_obat')->get();
+        foreach ($data as $d) {
+            $check = M_obat::where('nama', $d->value)->first();
+            if ($check == null) {
+                $n = new M_obat;
+                $n->nama = $d->value;
+                $n->save();
+            }
+        }
+        toastr()->success('Berhasil Di tarik');
+        return back();
     }
 }

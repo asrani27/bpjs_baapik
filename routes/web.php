@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::post('daftarantrian/bpjs', [BerandaController::class, 'storeantrianbpjs']);
     Route::get('daftarantrian/bpjs/nomor', [BerandaController::class, 'checknomor']);
     Route::get('beranda', [BerandaController::class, 'index']);
+    Route::get('statistik', [BerandaController::class, 'statistik']);
     Route::get('logout', [LogoutController::class, 'logout']);
     Route::get('setting/data/bpjs', [SettingController::class, 'bpjs']);
     Route::post('setting/data/bpjs', [SettingController::class, 'updatebpjs']);
@@ -46,6 +47,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('/datamaster/data/dokter/delete/{id}', [DokterController::class, 'delete']);
 
     Route::get('/datamaster/data/obat', [ObatController::class, 'index']);
+    Route::get('/datamaster/data/obat/tarik', [ObatController::class, 'tarik']);
     Route::get('/datamaster/data/obat/add', [ObatController::class, 'create']);
     Route::post('/datamaster/data/obat/add', [ObatController::class, 'store']);
     Route::get('/datamaster/data/obat/edit/{id}', [ObatController::class, 'edit']);

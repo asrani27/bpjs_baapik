@@ -15,6 +15,8 @@
                 <div class="card-tools">
                     <a href="/datamaster/data/obat/add" type="button" class="btn bg-gradient-blue btn-sm">
                         <i class="fas fa-plus"></i> Tambah Data</a>
+                    <a href="/datamaster/data/obat/tarik" type="button" class="btn bg-gradient-blue btn-sm">
+                        <i class="fas fa-sync"></i> Tarik Data Dari Aplikasi Lama</a>
                 </div>
             </div>
             <!-- /.card-header -->

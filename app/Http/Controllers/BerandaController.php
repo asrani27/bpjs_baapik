@@ -7,6 +7,7 @@ use App\Models\M_poli;
 use GuzzleHttp\Client;
 use App\Models\M_pasien;
 use App\Models\T_antrian;
+use App\Models\T_pelayanan;
 use App\Models\T_pendaftaran;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -135,11 +136,11 @@ class BerandaController extends Controller
             $poli = M_poli::get();
             $data = json_decode((string)$response->getBody())->response;
 
-            if ($data->kdProviderPst->kdProvider != substr($user->user_pcare, 0, 8)) {
-                toastr()->error('TIDAK BISA MENDAFTAR DI FASKES ' . strtoupper($user->name) . ', ANDA TERDAFTAR DI FASKES ' . $data->kdProviderPst->nmProvider);
-                request()->flash();
-                return back();
-            }
+            // if ($data->kdProviderPst->kdProvider != substr($user->user_pcare, 0, 8)) {
+            //     toastr()->error('TIDAK BISA MENDAFTAR DI FASKES ' . strtoupper($user->name) . ', ANDA TERDAFTAR DI FASKES ' . $data->kdProviderPst->nmProvider);
+            //     request()->flash();
+            //     return back();
+            // }
 
             return view('superadmin.antrianbpjs2', compact('data', 'poli', 'tgl'));
         } catch (\Exception $e) {
@@ -242,5 +243,22 @@ class BerandaController extends Controller
     public function antrianbpjs()
     {
         return view('superadmin.antrianbpjs');
+    }
+    public function statistik()
+    {
+        $ruangan = M_poli::get()->map(function ($item) {
+            return $item->nmPoli;
+        });
+
+        $jml = M_poli::get()->map(function ($item) {
+            $month = Carbon::today()->format('m');
+            $year = Carbon::today()->format('Y');
+
+            //$item->jml = count(T_pelayanan::where('kdPoli', $item->kdPoli)->whereMonth('created_at', $month)->whereYear('created_at', $year)->get());
+            $item->jml = rand(5, 20);
+            return $item->jml;
+        });
+
+        return view('superadmin.statistik', compact('ruangan', 'jml'));
     }
 }
