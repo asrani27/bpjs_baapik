@@ -138,3 +138,121 @@ function antrean($param)
         return $hasil = '0' . $param;
     }
 }
+
+
+
+function headerDevelopment()
+{
+    $cons_id = '22384';
+    $secret_key = '8pU09D202F';
+    $username_pcare = '17010104_fitri';
+    $password_pcare = 'Puskesmas123#';
+    $kdAplikasi = '095';
+    $user_key = 'c7939e613689f4b2a7773d6d1421d68f';
+
+    date_default_timezone_set('UTC');
+    $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
+    $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secret_key, true);
+    $encodedSignature = base64_encode($signature);
+
+    $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
+
+    $head['Content-Type']    = 'application/json';
+    $head['X-cons-id'] = $cons_id;
+    $head['X-Timestamp'] = $tStamp;
+    $head['X-Signature'] = $encodedSignature;
+    $head['X-Authorization'] = 'Basic ' . $Authorization;
+    $head['user_key'] = $user_key;
+
+    return $head;
+}
+
+function headerProduction()
+{
+    $user = Auth::user();
+
+    $cons_id = $user->cons_id;
+    $secret_key = $user->secret_key;
+    $username_pcare = $user->user_pcare;
+    $password_pcare = $user->pass_pcare;
+    $kdAplikasi = '095';
+
+    date_default_timezone_set('UTC');
+    $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
+    $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secret_key, true);
+    $encodedSignature = base64_encode($signature);
+    $urlencodedSignature = urlencode($encodedSignature);
+
+    $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
+
+    $head['accept']    = 'application/json';
+    $head['Content-Type']    = 'application/json';
+    $head['X-cons-id'] = $cons_id;
+    $head['X-Timestamp'] = $tStamp;
+    $head['X-Signature'] = $encodedSignature;
+    $head['X-Authorization'] = 'Basic ' . $Authorization;
+
+    return $head;
+}
+
+function trustMarkKT()
+{
+    $cons_id = '10701';
+    $secret_key = '9lUCE90DDA';
+    $username_pcare = '17010302';
+    $password_pcare = '@KTutama11111';
+    $kdAplikasi = '095';
+    $user_key = 'b8f3ff1b16071289bf4493e610cfedb4';
+
+    date_default_timezone_set('UTC');
+    $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
+    $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secret_key, true);
+    $encodedSignature = base64_encode($signature);
+
+    $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
+
+    $head['Content-Type']    = 'application/json';
+    $head['X-cons-id'] = $cons_id;
+    $head['X-Timestamp'] = $tStamp;
+    $head['X-Signature'] = $encodedSignature;
+    $head['X-Authorization'] = 'Basic ' . $Authorization;
+    $head['user_key'] = $user_key;
+
+    return $head;
+}
+function baseUrl()
+{
+    return new Client([
+        'base_uri' => 'https://apijkn-dev.bpjs-kesehatan.go.id/pcare-rest-dev/',
+    ]);
+}
+
+function WSDiagnosa($type = 'GET', $kode = '0', $row = 0, $limit = 10000)
+{
+    $client = baseUrl();
+    $response = $client->request($type, 'diagnosa/' . $kode . '/' . $row . '/' . $limit, [
+        'headers' => trustMark(),
+    ]);
+    dd($response);
+    // $response = $client->request($type, 'diagnosa/Z0/0/1000', [
+    //     'headers' => trustMark(),
+    // ]);
+    $string = json_decode((string)$response->getBody())->response;
+
+    return decryptString($string);
+}
+
+
+function decryptString($string)
+{
+    $key = trustMark()['X-cons-id'] . '8pU09D202F' . trustMark()['X-Timestamp'];
+
+    $encrypt_method = 'AES-256-CBC';
+    $key_hash = hex2bin(hash('sha256', $key));
+    $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);
+    $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+
+    $result = json_decode(\LZCompressor\LZString::decompressFromEncodedURIComponent($output));
+
+    return $result;
+}

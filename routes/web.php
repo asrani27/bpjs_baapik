@@ -18,6 +18,11 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PesertaTerdaftarController;
 
 Route::get('/', [LoginController::class, 'showlogin'])->name('login');
+Route::get('/login', function () {
+    return redirect('/');
+});
+
+Route::get('/testapi', [SettingController::class, 'testapi']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
@@ -67,6 +72,8 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 
     Route::get('/datamaster/data/diagnosa', [DiagnosaController::class, 'index']);
     Route::get('/datamaster/data/diagnosa/sync', [DiagnosaController::class, 'sync']);
+    Route::get('/datamaster/data/diagnosa/add', [DiagnosaController::class, 'add']);
+    Route::post('/datamaster/data/diagnosa/add', [DiagnosaController::class, 'wsGetDiagnosa']);
 
     Route::get('/datamaster/data/provider', [ProviderController::class, 'index']);
     Route::get('/datamaster/data/provider/sync', [ProviderController::class, 'sync']);

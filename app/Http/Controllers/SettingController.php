@@ -14,6 +14,12 @@ class SettingController extends Controller
         return view('superadmin.bpjs.index', compact('data'));
     }
 
+    public function testapi()
+    {
+        //dd('dasd');
+        dd(env('APP_ENV'));
+    }
+
     public function gantipass()
     {
         return view('superadmin.bpjs.gantipass');

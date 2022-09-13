@@ -15,6 +15,28 @@ class DiagnosaController extends Controller
         return view('superadmin.master.diagnosa.index', compact('data'));
     }
 
+    public function add()
+    {
+        $data = null;
+        return view('superadmin.master.diagnosa.add', compact('data'));
+    }
+
+    public function wsGetDiagnosa(Request $request)
+    {
+
+        $service = WSDiagnosa('GET', $request->cari = null ? '' : $request->cari, 0, 10000);
+
+        if ($service == null) {
+            toastr()->error('Data Tidak Ditemukan');
+            $request->flash();
+            return back();
+        } else {
+            $data = $service;
+            $request->flash();
+            return view('superadmin.master.diagnosa.add', compact('data'));
+        }
+    }
+
     public function sync()
     {
         $user = Auth::user();

@@ -10,8 +10,8 @@
             <div class="card-header">
                 <h3 class="card-title">DATA DIAGNOSA</h3>
                 <div class="card-tools">
-                    <a href="/datamaster/data/diagnosa/sync" type="button" class="btn bg-gradient-blue btn-sm">
-                        <i class="fas fa-sync"></i> Sinkron Data</a>
+                    <a href="/datamaster/data/diagnosa/add" type="button" class="btn bg-gradient-blue btn-sm">
+                        <i class="fas fa-plus"></i> Tambah Diagnosa</a>
                 </div>
             </div>
             <!-- /.card-header -->
