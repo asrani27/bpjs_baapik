@@ -143,12 +143,14 @@ function antrean($param)
 
 function headerDevelopment()
 {
-    $cons_id = '22384';
-    $secret_key = '8pU09D202F';
-    $username_pcare = '17010104_fitri';
-    $password_pcare = 'Puskesmas123#';
+    $user = Auth::user();
+
+    $cons_id = $user->cons_id_dev;
+    $secret_key = $user->secret_key_dev;
+    $username_pcare = $user->user_pcare_dev;
+    $password_pcare = $user->pass_pcare_dev;
+    $user_key = $user->user_key;
     $kdAplikasi = '095';
-    $user_key = 'c7939e613689f4b2a7773d6d1421d68f';
 
     date_default_timezone_set('UTC');
     $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
@@ -181,7 +183,6 @@ function headerProduction()
     $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
     $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secret_key, true);
     $encodedSignature = base64_encode($signature);
-    $urlencodedSignature = urlencode($encodedSignature);
 
     $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
 
@@ -195,57 +196,23 @@ function headerProduction()
     return $head;
 }
 
-function trustMarkKT()
-{
-    $cons_id = '10701';
-    $secret_key = '9lUCE90DDA';
-    $username_pcare = '17010302';
-    $password_pcare = '@KTutama11111';
-    $kdAplikasi = '095';
-    $user_key = 'b8f3ff1b16071289bf4493e610cfedb4';
-
-    date_default_timezone_set('UTC');
-    $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
-    $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secret_key, true);
-    $encodedSignature = base64_encode($signature);
-
-    $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
-
-    $head['Content-Type']    = 'application/json';
-    $head['X-cons-id'] = $cons_id;
-    $head['X-Timestamp'] = $tStamp;
-    $head['X-Signature'] = $encodedSignature;
-    $head['X-Authorization'] = 'Basic ' . $Authorization;
-    $head['user_key'] = $user_key;
-
-    return $head;
-}
-function baseUrl()
+function urlDevelopment()
 {
     return new Client([
         'base_uri' => 'https://apijkn-dev.bpjs-kesehatan.go.id/pcare-rest-dev/',
     ]);
 }
 
-function WSDiagnosa($type = 'GET', $kode = '0', $row = 0, $limit = 10000)
+function urlProduction()
 {
-    $client = baseUrl();
-    $response = $client->request($type, 'diagnosa/' . $kode . '/' . $row . '/' . $limit, [
-        'headers' => trustMark(),
+    return new Client([
+        'base_uri' => 'https://new-api.bpjs-kesehatan.go.id/pcare-rest-v3.0/',
     ]);
-    dd($response);
-    // $response = $client->request($type, 'diagnosa/Z0/0/1000', [
-    //     'headers' => trustMark(),
-    // ]);
-    $string = json_decode((string)$response->getBody())->response;
-
-    return decryptString($string);
 }
-
 
 function decryptString($string)
 {
-    $key = trustMark()['X-cons-id'] . '8pU09D202F' . trustMark()['X-Timestamp'];
+    $key = headerDevelopment()['X-cons-id'] . Auth::user()->secret_key_dev . headerDevelopment()['X-Timestamp'];
 
     $encrypt_method = 'AES-256-CBC';
     $key_hash = hex2bin(hash('sha256', $key));
@@ -255,4 +222,190 @@ function decryptString($string)
     $result = json_decode(\LZCompressor\LZString::decompressFromEncodedURIComponent($output));
 
     return $result;
+}
+
+
+// SERVICE BPJS 
+function WSDiagnosa($type = 'GET', $kode = '0', $row = 0, $limit = 10000)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'diagnosa/' . $kode . '/' . $row . '/' . $limit, [
+            'headers' => headerDevelopment(),
+        ]);
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'diagnosa/' . $kode . '/' . $row . '/' . $limit, [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSDokter($type = 'GET', $param1 = 0, $param2 = 1000)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'dokter/'  . $param1 . '/' . $param2, [
+            'headers' => headerDevelopment(),
+        ]);
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'dokter/' . '/' . $param1 . '/' . $param2, [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSKesadaran($type = 'GET')
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'kesadaran', [
+            'headers' => headerDevelopment(),
+        ]);
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'kesadaran', [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSPoli($type = 'GET', $param1 = 0, $param2 = 1000)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'poli/fktp/' . '/' . $param1 . '/' . $param2, [
+            'headers' => headerDevelopment(),
+        ]);
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'poli/fktp/' . '/' . $param1 . '/' . $param2, [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSProvider($type = 'GET', $param1 = 0, $param2 = 1000)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'provider/' . $param1 . '/' . $param2, [
+            'headers' => headerDevelopment(),
+        ]);
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'provider/' . $param1 . '/' . $param2, [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSStatusPulang($type = 'GET', $param1 = true)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'statuspulang/rawatInap/' . $param1, [
+            'headers' => headerDevelopment(),
+        ]);
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'statuspulang/rawatInap/' . $param1, [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSSpesialis($type = 'GET')
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'spesialis', [
+            'headers' => headerDevelopment(),
+        ]);
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'spesialis', [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSSubSpesialis($type = 'GET', $param1 = null)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'spesialis/' . $param1 . '/subspesialis', [
+            'headers' => headerDevelopment(),
+        ]);
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'spesialis/' . $param1 . '/subspesialis',  [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
 }

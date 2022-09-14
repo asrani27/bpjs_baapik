@@ -50,10 +50,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body text-sm">
-                Informasi :<br />
-                <span class="text-success"> <i class="fa fa-check"></i></span> Data Bridging Dari PCARE
+                Service Diagnosa :<br />
+                -Pencarian Diagnosa
                 <br />
-                <span class="text-danger"> <i class="fa fa-times"></i></span> Data Lokal Dari Aplikasi
+                -Pencarian Diagnosa Tidak Ditemukan
 
             </div>
         </div>

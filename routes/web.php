@@ -14,7 +14,9 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TindakanController;
 use App\Http\Controllers\KesadaranController;
 use App\Http\Controllers\PelayananController;
+use App\Http\Controllers\SpesialisController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\StatusPulangController;
 use App\Http\Controllers\PesertaTerdaftarController;
 
 Route::get('/', [LoginController::class, 'showlogin'])->name('login');
@@ -46,7 +48,8 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('/datamaster/data/dokter', [DokterController::class, 'index']);
     Route::get('/datamaster/data/dokter/sync', [DokterController::class, 'sync']);
     Route::get('/datamaster/data/dokter/add', [DokterController::class, 'create']);
-    Route::post('/datamaster/data/dokter/add', [DokterController::class, 'store']);
+    Route::get('/datamaster/data/dokter/getdokter', [DokterController::class, 'wsGetDokter']);
+    Route::post('/datamaster/data/dokter/add/simpanjson', [DokterController::class, 'store']);
     Route::get('/datamaster/data/dokter/edit/{id}', [DokterController::class, 'edit']);
     Route::post('/datamaster/data/dokter/edit/{id}', [DokterController::class, 'update']);
     Route::get('/datamaster/data/dokter/delete/{id}', [DokterController::class, 'delete']);
@@ -62,25 +65,42 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('/datamaster/data/poli', [PoliController::class, 'index']);
     Route::get('/datamaster/data/poli/sync', [PoliController::class, 'sync']);
     Route::get('/datamaster/data/poli/add', [PoliController::class, 'create']);
-    Route::post('/datamaster/data/poli/add', [PoliController::class, 'store']);
+    Route::post('/datamaster/data/poli/add/simpanjson', [PoliController::class, 'store']);
     Route::get('/datamaster/data/poli/edit/{id}', [PoliController::class, 'edit']);
     Route::post('/datamaster/data/poli/edit/{id}', [PoliController::class, 'update']);
     Route::get('/datamaster/data/poli/delete/{id}', [PoliController::class, 'delete']);
+    Route::get('/datamaster/data/poli/getpoli', [PoliController::class, 'wsGetPoli']);
 
     Route::get('/datamaster/data/kesadaran', [KesadaranController::class, 'index']);
     Route::get('/datamaster/data/kesadaran/sync', [KesadaranController::class, 'sync']);
+    Route::get('/datamaster/data/kesadaran/add', [KesadaranController::class, 'create']);
+    Route::get('/datamaster/data/kesadaran/getsadar', [KesadaranController::class, 'wsGetSadar']);
+    Route::post('/datamaster/data/kesadaran/add/simpanjson', [KesadaranController::class, 'store']);
 
     Route::get('/datamaster/data/diagnosa', [DiagnosaController::class, 'index']);
-    Route::get('/datamaster/data/diagnosa/sync', [DiagnosaController::class, 'sync']);
+    //Route::get('/datamaster/data/diagnosa/sync', [DiagnosaController::class, 'sync']);
     Route::get('/datamaster/data/diagnosa/add', [DiagnosaController::class, 'add']);
     Route::post('/datamaster/data/diagnosa/add', [DiagnosaController::class, 'wsGetDiagnosa']);
+    Route::post('/datamaster/data/diagnosa/add/simpanjson', [DiagnosaController::class, 'store']);
 
     Route::get('/datamaster/data/provider', [ProviderController::class, 'index']);
-    Route::get('/datamaster/data/provider/sync', [ProviderController::class, 'sync']);
+    Route::get('/datamaster/data/provider/add', [ProviderController::class, 'create']);
+    Route::get('/datamaster/data/provider/getprovider', [ProviderController::class, 'wsGetProvider']);
+    Route::post('/datamaster/data/provider/add/simpanjson', [ProviderController::class, 'store']);
+    //Route::get('/datamaster/data/provider/sync', [ProviderController::class, 'sync']);
+
+    Route::get('/datamaster/data/statuspulang', [StatusPulangController::class, 'index']);
+    Route::get('/datamaster/data/statuspulang/add', [StatusPulangController::class, 'create']);
+    Route::get('/datamaster/data/statuspulang/getstatuspulang', [StatusPulangController::class, 'getstatus']);
+    Route::post('/datamaster/data/statuspulang/getstatuspulang', [StatusPulangController::class, 'wsGetStatusPulang']);
+    Route::post('/datamaster/data/statuspulang/add/simpanjson', [StatusPulangController::class, 'store']);
+
+    Route::get('/datamaster/data/spesialis', [SpesialisController::class, 'index']);
+    Route::get('/datamaster/data/spesialis/getspesialis', [SpesialisController::class, 'wsGetSpesialis']);
+    Route::get('/datamaster/data/spesialis/getsubspesialis/{kode}', [SpesialisController::class, 'wsGetSubSpesialis']);
 
     Route::get('/datamaster/data/tindakan', [TindakanController::class, 'index']);
     Route::get('/datamaster/data/tindakan/sync', [TindakanController::class, 'sync']);
-
 
     Route::get('/entri/data/pendaftaran', [PendaftaranController::class, 'index']);
     Route::post('/entri/data/pendaftaran', [PendaftaranController::class, 'sync']);

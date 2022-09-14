@@ -13,8 +13,8 @@
             <div class="card-header">
                 <h3 class="card-title">Data Ruang</h3>
                 <div class="card-tools">
-                    <a href="/datamaster/data/poli/sync" type="button" class="btn bg-gradient-blue btn-sm">
-                        <i class="fas fa-sync"></i> Sinkron Data</a>
+                    <a href="/datamaster/data/poli/add" type="button" class="btn bg-gradient-blue btn-sm">
+                        <i class="fas fa-plus"></i> Tambah Poli</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -52,11 +52,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body text-sm">
-                Informasi :<br />
-                <span class="text-success"> <i class="fa fa-check"></i></span> Data Bridging Dari PCARE
-                <br />
-                <span class="text-danger"> <i class="fa fa-times"></i></span> Data Lokal Dari Aplikasi
-
+                Service Poli :<br />
+                -Get Poli
             </div>
         </div>
     </div>

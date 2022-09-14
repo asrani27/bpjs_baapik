@@ -16,8 +16,6 @@ class SettingController extends Controller
 
     public function testapi()
     {
-        //dd('dasd');
-        dd(env('APP_ENV'));
     }
 
     public function gantipass()
@@ -49,9 +47,17 @@ class SettingController extends Controller
         $u->secret_key = $req->secret_key;
         $u->user_pcare = $req->user_pcare;
         $u->pass_pcare = $req->pass_pcare;
-        $u->base_url   = $req->base_url;
+        $u->user_key   = $req->user_key;
+        $u->mode   = $req->mode;
+        $u->cons_id_dev = $req->cons_id_dev;
+        $u->secret_key_dev = $req->secret_key_dev;
+        $u->user_pcare_dev = $req->user_pcare_dev;
+        $u->pass_pcare_dev = $req->pass_pcare_dev;
         $u->save();
-        toastr()->success('Berhasil Di Update');
+
+        Auth::user()->update(['is_connect' => 0]);
+
+        toastr()->success('Berhasil Di Update, Lanjutkan test connection');
         return back();
     }
 
@@ -59,14 +65,14 @@ class SettingController extends Controller
     {
         $user = Auth::user();
 
-        // if ($user->cons_id == null) {
-        //     toastr()->error('CONS ID KOSONG');
-        //     return back();
-        // }
-        // if ($user->secret_key == null) {
-        //     toastr()->error('SECRET KEY KOSONG');
-        //     return back();
-        // }
+        if ($user->cons_id == null) {
+            toastr()->error('CONS ID KOSONG');
+            return back();
+        }
+        if ($user->secret_key == null) {
+            toastr()->error('SECRET KEY KOSONG');
+            return back();
+        }
         if ($user->user_pcare == null) {
             toastr()->error('USER PCARE KOSONG');
             return back();
@@ -76,70 +82,19 @@ class SettingController extends Controller
             return back();
         }
 
-        $client = new Client([
-            'base_uri' => $user->base_url,
-        ]);
-
-        // dd($response->getStatusCode());
-        // $data = json_decode((string)$response->getBody());
-        // dd($data);
         try {
-            $response = $client->request('GET', 'dokter/0/10', [
-                'headers' => headers()
-            ]);
+            $data = WSDiagnosa('GET', '0', 0, 10);
+
             Auth::user()->update(['is_connect' => 1]);
             toastr()->success('KONNEK');
             return back();
         } catch (\Exception $e) {
 
-            toastr()->error('GAGAL CONNECT, WEBSERVICE BPJS SEDANG GANGGUAN');
+            toastr()->error('GAGAL CONNECT');
 
             Auth::user()->update(['is_connect' => 0]);
-            $this->generateHeaders();
+
             return back();
         }
-    }
-
-    public function generateHeaders()
-    {
-        $user = Auth::user();
-
-        $cons_id = $user->cons_id;
-        $secret_key = $user->secret_key;
-        $username_pcare = $user->user_pcare;
-        $password_pcare = $user->pass_pcare;
-        $kdAplikasi = '095';
-
-        date_default_timezone_set('UTC');
-        $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
-        $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secret_key, true);
-        $encodedSignature = base64_encode($signature);
-        $urlencodedSignature = urlencode($encodedSignature);
-
-        $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
-
-        $head['X-cons-id'] = $cons_id;
-        $head['X-Timestamp'] = $tStamp;
-        $head['X-Signature'] = $encodedSignature;
-        $head['X-Authorization'] = $Authorization;
-
-        $u = Auth::user();
-        $u->x_timestamp = $head['X-Timestamp'];
-        $u->x_signature = $head['X-Signature'];
-        $u->x_authorization = 'Basic ' . $head['X-Authorization'];
-        $u->save();
-    }
-
-    public function headers()
-    {
-        $user = Auth::user();
-        $headers = [
-            'accept'            => 'application/json',
-            'X-Cons-id'         => $user->cons_id,
-            'X-Timestamp'       => $user->x_timestamp,
-            'X-Signature'       => $user->x_signature,
-            'X-Authorization'   => $user->x_authorization,
-        ];
-        return $headers;
     }
 }

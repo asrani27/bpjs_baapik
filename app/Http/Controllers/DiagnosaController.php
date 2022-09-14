@@ -21,6 +21,24 @@ class DiagnosaController extends Controller
         return view('superadmin.master.diagnosa.add', compact('data'));
     }
 
+    public function store(Request $request)
+    {
+        $data = json_decode($request->jsonDiag);
+        foreach ($data as $i) {
+            $check = M_diagnosa::where('kdDiag', $i->kdDiag)->first();
+            if ($check == null) {
+                $n = new M_diagnosa;
+                $n->kdDiag = $i->kdDiag;
+                $n->nmDiag = $i->nmDiag;
+                $n->nonSpesialis = $i->nonSpesialis == false ? 0 : 1;
+                $n->save();
+            } else {
+            }
+        }
+        toastr()->success('Berhasil Disimpan');
+        $request->flash();
+        return redirect('/datamaster/data/diagnosa/add');
+    }
     public function wsGetDiagnosa(Request $request)
     {
 
@@ -33,43 +51,8 @@ class DiagnosaController extends Controller
         } else {
             $data = $service;
             $request->flash();
+            toastr()->success('Data Ditemukan');
             return view('superadmin.master.diagnosa.add', compact('data'));
-        }
-    }
-
-    public function sync()
-    {
-        $user = Auth::user();
-
-        $client = new Client([
-            'base_uri' => $user->base_url,
-        ]);
-
-        try {
-            $response = $client->request('GET', 'diagnosa/a/0/90000', [
-                'headers' => headers()
-            ]);
-            $data = json_decode((string)$response->getBody())->response->list;
-
-            foreach ($data as $d) {
-                $check = M_diagnosa::where('kdDiag', $d->kdDiag)->first();
-                if ($check == null) {
-                    $n = new M_diagnosa;
-                    $n->kdDiag = $d->kdDiag;
-                    $n->nmDiag = $d->nmDiag;
-                    $n->nonSpesialis = $d->nonSpesialis;
-                    $n->save();
-                } else {
-                }
-            }
-
-            toastr()->success('Berhasil Di Sinkron');
-            return back();
-        } catch (\Exception $e) {
-
-            generateHeaders();
-            toastr()->error('Gagal Sinkron');
-            return back();
         }
     }
 }

@@ -15,38 +15,43 @@ class KesadaranController extends Controller
         return view('superadmin.master.kesadaran.index', compact('data'));
     }
 
-    public function sync()
+    public function create()
     {
-        $user = Auth::user();
+        $data = null;
+        return view('superadmin.master.kesadaran.create', compact('data'));
+    }
 
-        $client = new Client([
-            'base_uri' => $user->base_url,
-        ]);
+    public function wsGetSadar(Request $request)
+    {
+        $service = WSKesadaran('GET');
 
-        try {
-            $response = $client->request('GET', 'kesadaran', [
-                'headers' => headers()
-            ]);
-            $data = json_decode((string)$response->getBody())->response->list;
-
-            foreach ($data as $d) {
-                $check = M_kesadaran::where('kdSadar', $d->kdSadar)->first();
-                if ($check == null) {
-                    $n = new M_kesadaran;
-                    $n->kdSadar = $d->kdSadar;
-                    $n->nmSadar = $d->nmSadar;
-                    $n->save();
-                } else {
-                }
-            }
-
-            toastr()->success('Berhasil Di Sinkron');
+        if ($service == null) {
+            toastr()->error('Data Tidak Ditemukan');
+            $request->flash();
             return back();
-        } catch (\Exception $e) {
-
-            generateHeaders();
-            toastr()->error('Gagal Sinkron');
-            return back();
+        } else {
+            $data = $service;
+            $request->flash();
+            toastr()->success('Data Ditemukan');
+            return view('superadmin.master.kesadaran.create', compact('data'));
         }
+    }
+
+    public function store(Request $request)
+    {
+        $data = json_decode($request->jsonDiag);
+        foreach ($data as $i) {
+            $check = M_kesadaran::where('kdSadar', $i->kdSadar)->first();
+            if ($check == null) {
+                $n = new M_kesadaran;
+                $n->kdSadar = $i->kdSadar;
+                $n->nmSadar = $i->nmSadar;
+                $n->save();
+            } else {
+            }
+        }
+        toastr()->success('Berhasil Disimpan');
+
+        return redirect('/datamaster/data/kesadaran');
     }
 }

@@ -7,31 +7,36 @@
     <div class="col-12">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">DATA DIAGNOSA</h3>
+                <h3 class="card-title">DATA STATUS PULANG</h3>
                 <div class="card-tools">
-                    <a href="/datamaster/data/diagnosa" type="button" class="btn btn-xs bg-gradient-blue">
+                    <a href="/datamaster/data/statuspulang" type="button" class="btn btn-xs bg-gradient-blue">
                         <i class="fas fa-arrow-left"></i> Kembali</a>
                 </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body p-2">
-                <form method="post" action="/datamaster/data/diagnosa/add">
+                <form method="post" action="/datamaster/data/statuspulang/getstatuspulang">
                     @csrf
                 <div class="form-group row">
-                    <div class="col-sm-12">
-                      <input type="text" class="form-control" id="inputEmail3" name="cari" value="{{old('cari')}}" placeholder="Cari Diagnosa" required>
+                    <div class="col-sm-2">
+                        <label>Rawat Inap ?</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="param1">
+                            <option value="true" {{old('param1') == 'true' ? 'selected':''}}>TRUE</option>
+                            <option value="false" {{old('param1') == 'false' ? 'selected':''}}>FALSE</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                      <button type="submit" class="btn btn-primary btn-block">Cari</button>
+                      <button type="submit" class="btn btn-primary btn-block">Get Status Pulang</button>
                     </div>
                 </div>
                 </form>
-                
                 @if ($data != null)
 
-                <form method="post" action="/datamaster/data/diagnosa/add/simpanjson">
+                <form method="post" action="/datamaster/data/statuspulang/add/simpanjson">
                     @csrf
                     <input type="hidden" value="{{json_encode($data->list)}}" name="jsonDiag">
                     <button type="submit" class="btn btn-success btn-block">Simpan Ke Lokal</button>
@@ -40,7 +45,7 @@
                     Jumlah : {{$data->count}}<br/>
                     Lihat Data : 
                     @foreach ($data->list as $item)
-                        <li>{{$item->kdDiag}} - {{$item->nmDiag}}</li>
+                        <li>{{$item->kdStatusPulang}} - {{$item->nmStatusPulang}}</li>
                     @endforeach
                     
                 @else
@@ -57,11 +62,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body text-sm">
-                Service Diagnosa :<br />
-                -Pencarian Diagnosa
-                <br />
-                -Pencarian Diagnosa Tidak Ditemukan
-
+                Service Poli :<br />
+                -Get Poli
             </div>
         </div>
     </div>

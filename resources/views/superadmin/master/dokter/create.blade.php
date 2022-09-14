@@ -1,58 +1,60 @@
 @extends('layouts.app')
-
 @push('css')
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 @endpush
-@section('title')
-
-@endsection
 @section('content')
 <br />
 <div class="row">
     <div class="col-12">
-        <form method="post" action="/datamaster/data/dokter/add">
-            @csrf
-            <div class="row">
-                <div class="col-lg-12 col-12">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title">Data Dokter</h3>
-                            <div class="card-tools">
-                                <a href="/datamaster/data/dokter" type="button" class="btn bg-gradient-blue btn-sm">
-                                    <i class="fa fa-arrow-left"></i> Kembali</a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            {{--
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Kode Dokter</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="kdDokter" required>
-                                </div>
-                            </div> --}}
-
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nama Dokter</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nmDokter" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-10">
-                                    <button type="submit"
-                                        class="btn btn-block btn-primary"><strong>SIMPAN</strong></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">DATA DOKTER</h3>
+                <div class="card-tools">
+                    <a href="/datamaster/data/dokter" type="button" class="btn btn-xs bg-gradient-blue">
+                        <i class="fas fa-arrow-left"></i> Kembali</a>
                 </div>
             </div>
-        </form>
+            <!-- /.card-header -->
+            <div class="card-body p-2">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                      <a href="/datamaster/data/dokter/getdokter" class="btn btn-primary btn-block">Get Dokter</a>
+                    </div>
+                </div>
+                
+                @if ($data != null)
+
+                <form method="post" action="/datamaster/data/dokter/add/simpanjson">
+                    @csrf
+                    <input type="hidden" value="{{json_encode($data->list)}}" name="jsonDiag">
+                    <button type="submit" class="btn btn-success btn-block">Simpan Ke Lokal</button>
+                </form>
+                    Data Ditemukan<br/>
+                    Jumlah : {{$data->count}}<br/>
+                    Lihat Data : 
+                    @foreach ($data->list as $item)
+                        <li>{{$item->kdDokter}} - {{$item->nmDokter}}</li>
+                    @endforeach
+                    
+                @else
+                    
+                @endif
+            </div>
+            
+            <!-- /.card-body -->
+        </div>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-sm">
+                Service Dokter :<br />
+                -Pencarian Dokter
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js')

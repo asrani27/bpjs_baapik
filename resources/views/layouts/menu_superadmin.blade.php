@@ -74,21 +74,15 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="/datamaster/data/dokter" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>DOKTER</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/datamaster/data/poli" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>RUANG</p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="/datamaster/data/diagnosa" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>DIAGNOSA</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/datamaster/data/dokter" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>DOKTER</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -98,9 +92,27 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/datamaster/data/poli" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>RUANG/POLI</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/datamaster/data/provider" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>PROVIDER</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/datamaster/data/statuspulang" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>STATUS PULANG</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/datamaster/data/spesialis" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>SPESIALIS</p>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -15,16 +15,20 @@
             <form method="post" action="/setting/data/bpjs">
                 @csrf
                 <div class="card-body">
-                    {{-- <div class="form-group">
+
+                    <div class="form-group">
+                        <label>AKUN PRODUCTION :</label>
+                    </div>
+                    <div class="form-group">
                         <label>CONS ID</label>
+                        <input type="text" class="form-control" name="cons_id"
+                            value="{{$data == null ? '': $data->cons_id}}">
                     </div>
                     <div class="form-group">
                         <label>SECRET KEY</label>
-                    </div> --}}
-                    <input type="hidden" class="form-control" name="cons_id"
-                        value="{{$data == null ? '': $data->cons_id}}">
-                    <input type="hidden" class="form-control" name="secret_key"
-                        value="{{$data == null ? '': $data->secret_key}}">
+                        <input type="text" class="form-control" name="secret_key"
+                            value="{{$data == null ? '': $data->secret_key}}">
+                    </div>
                     <div class="form-group">
                         <label>USER PCARE</label>
                         <input type="text" class="form-control" name="user_pcare"
@@ -38,10 +42,46 @@
                     </div>
 
                     <div class="form-group">
-                        <label>URL BRIDGING</label>
-                        <input type="text" class="form-control" name="base_url"
-                            value="{{$data == null ? 'https://new-api.bpjs-kesehatan.go.id/pcare-rest-v3.0/': $data->base_url}}">
+                        <label>AKUN DEVELOPMENT :</label>
                     </div>
+                    
+                    <div class="form-group">
+                        <label>CONS ID</label>
+                        <input type="text" class="form-control" name="cons_id_dev"
+                            value="{{$data == null ? '': $data->cons_id_dev}}">
+                    </div>
+                    <div class="form-group">
+                        <label>SECRET KEY</label>
+                        <input type="text" class="form-control" name="secret_key_dev"
+                            value="{{$data == null ? '': $data->secret_key_dev}}">
+                    </div>
+                    <div class="form-group">
+                        <label>USER PCARE</label>
+                        <input type="text" class="form-control" name="user_pcare_dev"
+                            value="{{$data == null ? '': $data->user_pcare_dev}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>PASS PCARE</label>
+                        <input type="text" class="form-control" name="pass_pcare_dev"
+                            value="{{$data == null ? '': $data->pass_pcare_dev}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>User Key</label>
+                        <input type="text" class="form-control" name="user_key"
+                            value="{{$data == null ? '': $data->user_key}}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Mode</label>
+                        <select class="form-control" name="mode">
+                            <option value="0" {{$data->mode == 0 ? 'selected':''}}>Development</option>
+                            <option value="1" {{$data->mode == 1 ? 'selected':''}}>Production</option>
+                        </select>
+                    </div>
+                    
+
                     <div class="form-group">
                         <label>STATUS</label><br />
                         @if (Auth::user()->is_connect == 0)

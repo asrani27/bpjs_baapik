@@ -11,10 +11,10 @@
     <div class="col-12">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">DATA PROVIDER</h3>
+                <h3 class="card-title">Data Ruang</h3>
                 <div class="card-tools">
-                    <a href="/datamaster/data/provider/add" type="button" class="btn bg-gradient-blue btn-sm">
-                        <i class="fas fa-plus"></i> Tambah Provider</a>
+                    <a href="/datamaster/data/spesialis/getspesialis" type="button" class="btn bg-gradient-blue btn-sm">
+                        <i class="fas fa-sync"></i> Get Spesialis</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -23,8 +23,11 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Provider</th>
-                            <th>Nama Provider</th>
+                            <th>Kode Spesialis</th>
+                            <th>Nama Spesialis</th>
+                            <th>Sub Spesialis</th>
+                            <th></th>
+                            
                         </tr>
                     </thead>
                     @php
@@ -34,8 +37,20 @@
                         @foreach ($data as $key => $item)
                         <tr>
                             <td>{{$no++}}</td>
-                            <td>{{$item->kdProvider}}</td>
-                            <td>{{$item->nmProvider}}</td>
+                            <td>{{$item->kdSpesialis}}</td>
+                            <td>{{$item->nmSpesialis}}</td>
+                            <td>
+                                @if (count($item->sub)!= 0)
+                            
+                                    @foreach ($item->sub as $item2)
+                                        <li>{{$item2->nmSubSpesialis}}</li>
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                <a href="/datamaster/data/spesialis/getsubspesialis/{{$item->kdSpesialis}}" type="button" class="btn bg-gradient-blue btn-xs">
+                                    <i class="fas fa-sync"></i> Get SubSpesialis</a>
+                                </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -50,8 +65,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body text-sm">
-                Service Provider :<br />
-                -Get Provider
+                Service Poli :<br />
+                -Get Poli
             </div>
         </div>
     </div>

@@ -15,38 +15,44 @@ class ProviderController extends Controller
         return view('superadmin.master.provider.index', compact('data'));
     }
 
-    public function sync()
+    public function create()
     {
-        $user = Auth::user();
+        $data = null;
+        return view('superadmin.master.provider.create', compact('data'));
+    }
 
-        $client = new Client([
-            'base_uri' => $user->base_url,
-        ]);
+    public function wsGetProvider(Request $request)
+    {
 
-        try {
-            $response = $client->request('GET', 'provider/0/100', [
-                'headers' => headers()
-            ]);
-            $data = json_decode((string)$response->getBody())->response->list;
+        $service = WSProvider('GET', 0, 100);
 
-            foreach ($data as $d) {
-                $check = M_provider::where('kdProvider', $d->kdProvider)->first();
-                if ($check == null) {
-                    $n = new M_provider;
-                    $n->kdProvider = $d->kdProvider;
-                    $n->nmProvider = $d->nmProvider; 
-                    $n->save();
-                } else {
-                }
-            }
-
-            toastr()->success('Berhasil Di Sinkron');
+        if ($service == null) {
+            toastr()->error('Data Tidak Ditemukan');
+            $request->flash();
             return back();
-        } catch (\Exception $e) {
+        } else {
+            $data = $service;
+            $request->flash();
+            toastr()->success('Data Ditemukan');
 
-            generateHeaders();
-            toastr()->error('Gagal Sinkron');
-            return back();
+            return view('superadmin.master.provider.create', compact('data'));
         }
+    }
+    public function store(Request $request)
+    {
+        $data = json_decode($request->jsonDiag);
+        foreach ($data as $i) {
+            $check = M_provider::where('kdProvider', $i->kdProvider)->first();
+            if ($check == null) {
+                $n = new M_provider;
+                $n->kdProvider = $i->kdProvider;
+                $n->nmProvider = $i->nmProvider;
+                $n->save();
+            } else {
+            }
+        }
+        toastr()->success('Berhasil Disimpan');
+        $request->flash();
+        return redirect('/datamaster/data/provider');
     }
 }

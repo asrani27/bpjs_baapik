@@ -11,10 +11,10 @@
     <div class="col-12">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">DATA PROVIDER</h3>
+                <h3 class="card-title">DATA STATUS PULANG</h3>
                 <div class="card-tools">
-                    <a href="/datamaster/data/provider/add" type="button" class="btn bg-gradient-blue btn-sm">
-                        <i class="fas fa-plus"></i> Tambah Provider</a>
+                    <a href="/datamaster/data/statuspulang/add" type="button" class="btn bg-gradient-blue btn-sm">
+                        <i class="fas fa-plus"></i> Tambah Data</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -23,8 +23,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Provider</th>
-                            <th>Nama Provider</th>
+                            <th>Kode Status Pulang</th>
+                            <th>Nama Status Pulang</th>
                         </tr>
                     </thead>
                     @php
@@ -34,8 +34,8 @@
                         @foreach ($data as $key => $item)
                         <tr>
                             <td>{{$no++}}</td>
-                            <td>{{$item->kdProvider}}</td>
-                            <td>{{$item->nmProvider}}</td>
+                            <td>{{$item->kdStatusPulang}}</td>
+                            <td>{{$item->nmStatusPulang}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -50,8 +50,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body text-sm">
-                Service Provider :<br />
-                -Get Provider
+                Service Status Pulang :<br />
+                -Get Status Pulang
             </div>
         </div>
     </div>

@@ -17,16 +17,43 @@ class DokterController extends Controller
 
     public function create()
     {
-        return view('superadmin.master.dokter.create');
+        $data = null;
+        return view('superadmin.master.dokter.create', compact('data'));
+    }
+    public function wsGetDokter(Request $request)
+    {
+
+        $service = WSDokter('GET', 0, 100);
+
+        if ($service == null) {
+            toastr()->error('Data Tidak Ditemukan');
+            $request->flash();
+            return back();
+        } else {
+            $data = $service;
+            $request->flash();
+            toastr()->success('Data Ditemukan');
+            return view('superadmin.master.dokter.create', compact('data'));
+        }
     }
 
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        $attr = $req->all();
+        $data = json_decode($request->jsonDiag);
+        foreach ($data as $i) {
+            $check = M_dokter::where('kdDokter', $i->kdDokter)->first();
+            if ($check == null) {
+                $n = new M_dokter;
+                $n->kdDokter = $i->kdDokter;
+                $n->nmDokter = $i->nmDokter;
+                $n->is_bridging = 1;
+                $n->save();
+            } else {
+                $check->update(['is_bridging' => 1]);
+            }
+        }
+        toastr()->success('Berhasil Disimpan');
 
-        M_dokter::create($attr);
-
-        toastr()->success('Berhasil Di Simpan');
         return redirect('/datamaster/data/dokter');
     }
 
