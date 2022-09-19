@@ -103,9 +103,14 @@
                                         class="badge badge-danger">DIAGNOSA</span></a>
                                 @endif
 
-
+                                @if ($item->resep->first() != null)
+                                <a href="/entri/data/pelayanan/resep/{{$item->id}}"><span
+                                        class="badge badge-success">RESEP</span></a>
+                                @else
                                 <a href="/entri/data/pelayanan/resep/{{$item->id}}"><span
                                         class="badge badge-danger">RESEP</span></a>
+                                @endif
+                            
 
                                 @if ($item->tindakan->first() != null)
                                 <a href="/entri/data/pelayanan/tindakan/{{$item->id}}"><span
