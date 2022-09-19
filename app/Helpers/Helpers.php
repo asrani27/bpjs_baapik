@@ -159,6 +159,7 @@ function headerDevelopment()
 
     $Authorization = base64_encode($username_pcare . ':' . $password_pcare . ':' . $kdAplikasi);
 
+    $head['Accept']    = 'application/json';
     $head['Content-Type']    = 'application/json';
     $head['X-cons-id'] = $cons_id;
     $head['X-Timestamp'] = $tStamp;
@@ -403,6 +404,238 @@ function WSSubSpesialis($type = 'GET', $param1 = null)
     } else {
         $client = urlProduction();
         $response = $client->request($type, 'spesialis/' . $param1 . '/subspesialis',  [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSCheckNomor($type = 'GET', $param1 = null)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'peserta/' . $param1, [
+            'headers' => headerDevelopment(),
+        ]);
+
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'peserta/' . $param1,  [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSCheckNomorByNik($type = 'GET', $param1 = null)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'peserta/nik/' . $param1, [
+            'headers' => headerDevelopment(),
+        ]);
+
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'peserta/nik/' . $param1,  [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSGetPendaftaran($type = 'GET', $param1 = null, $param2 = 0, $param3 = 100)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'pendaftaran/tglDaftar/' . $param1 . '/' . $param2 . '/' . $param3, [
+            'headers' => headerDevelopment(),
+        ]);
+
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'pendaftaran/tglDaftar/' . $param1 . '/' . $param2 . '/' . $param3, [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSSarana($type = 'GET')
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'spesialis/sarana', [
+            'headers' => headerDevelopment(),
+        ]);
+
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'spesialis/sarana', [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+function WSKhusus($type = 'GET')
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'spesialis/khusus', [
+            'headers' => headerDevelopment(),
+        ]);
+
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'spesialis/khusus', [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSDeletePendaftaran($type = 'GET', $param1 = null, $param2 = null, $param3 = null, $param4 = null)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'pendaftaran/peserta/' . $param1 . '/tglDaftar/' . $param2 . '/noUrut/' . $param3 . '/kdPoli/' . $param4, [
+            'headers' => headerDevelopment(),
+        ]);
+
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'pendaftaran/peserta/' . $param1 . '/tglDaftar/' . $param2 . '/noUrut/' . $param3 . '/kdPoli/' . $param4, [
+            'headers' => headerProduction(),
+        ]);
+        $data = json_decode((string)$response->getBody())->response;
+        return $data;
+    }
+}
+
+function WSPostPendaftaran($type = 'POST', $param1 = null)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://apijkn-dev.bpjs-kesehatan.go.id/pcare-rest-dev/pendaftaran",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $param1,
+            CURLOPT_HTTPHEADER => array(
+                "accept: application/json",
+                "cache-control: no-cache",
+                "content-type: text/plain",
+                "x-authorization: " . headerDevelopment()['X-Authorization'],
+                "x-cons-id: " . headerDevelopment()['X-cons-id'],
+                "x-signature: " . headerDevelopment()['X-Signature'],
+                "x-timestamp: " . headerDevelopment()['X-Timestamp'],
+                "user_key: " . headerDevelopment()['user_key']
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        $data = decryptString(json_decode($response)->response);
+        return $data;
+    } else {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://new-api.bpjs-kesehatan.go.id/pcare-rest-v3.0/pendaftaran",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $param1,
+            CURLOPT_HTTPHEADER => array(
+                "accept: application/json",
+                "cache-control: no-cache",
+                "content-type: application/json",
+                "x-authorization: " . headerProduction()['X-Authorization'],
+                "x-cons-id: " . headerProduction()['X-cons-id'],
+                "x-signature: " . headerProduction()['X-Signature'],
+                "x-timestamp: " . headerProduction()['X-Timestamp']
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        return json_decode($response)->response->message;
+    }
+}
+
+function WSGetKunjungan($type = 'GET', $param1 = null)
+{
+    $mode = Auth::user()->mode;
+
+    if ($mode == 0) {
+        $client = urlDevelopment();
+
+        $response = $client->request($type, 'kunjungan/peserta/' . $param1, [
+            'headers' => headerDevelopment(),
+        ]);
+
+        $string = json_decode((string)$response->getBody())->response;
+
+        return decryptString($string);
+    } else {
+        $client = urlProduction();
+        $response = $client->request($type, 'kunjungan/peserta/' . $param1, [
             'headers' => headerProduction(),
         ]);
         $data = json_decode((string)$response->getBody())->response;

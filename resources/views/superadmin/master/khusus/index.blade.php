@@ -11,10 +11,10 @@
     <div class="col-12">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Data Spesialis</h3>
+                <h3 class="card-title">Data Khusus</h3>
                 <div class="card-tools">
-                    <a href="/datamaster/data/spesialis/getspesialis" type="button" class="btn bg-gradient-blue btn-sm">
-                        <i class="fas fa-sync"></i> Get Spesialis</a>
+                    <a href="/datamaster/data/khusus/getkhusus" type="button" class="btn bg-gradient-blue btn-sm">
+                        <i class="fas fa-sync"></i> Get Khusus</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -23,10 +23,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Spesialis</th>
-                            <th>Nama Spesialis</th>
-                            <th>Sub Spesialis</th>
-                            <th></th>
+                            <th>Kode khusus</th>
+                            <th>Nama khusus</th>
                             
                         </tr>
                     </thead>
@@ -37,20 +35,8 @@
                         @foreach ($data as $key => $item)
                         <tr>
                             <td>{{$no++}}</td>
-                            <td>{{$item->kdSpesialis}}</td>
-                            <td>{{$item->nmSpesialis}}</td>
-                            <td>
-                                @if (count($item->sub)!= 0)
-                            
-                                    @foreach ($item->sub as $item2)
-                                        <li>{{$item2->nmSubSpesialis}}</li>
-                                    @endforeach
-                                @endif
-                            </td>
-                            <td>
-                                <a href="/datamaster/data/spesialis/getsubspesialis/{{$item->kdSpesialis}}" type="button" class="btn bg-gradient-blue btn-xs">
-                                    <i class="fas fa-sync"></i> Get SubSpesialis</a>
-                                </td>
+                            <td>{{$item->kdKhusus}}</td>
+                            <td>{{$item->nmKhusus}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -65,8 +51,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body text-sm">
-                Service Poli :<br />
-                -Get Poli
+                Service khusus :<br />
+                -Get khusus
             </div>
         </div>
     </div>

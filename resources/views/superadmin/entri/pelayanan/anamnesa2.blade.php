@@ -41,7 +41,7 @@
                 <h3 class="card-title">Riwayat Pasien</h3>
             </div><!-- /.card-header -->
             <div class="card-body">
-
+                {{-- <a href="/entri/data/pelayanan/anamnesa/{{$id}}/kunjungan">Get Kunjungan</a> --}}
             </div><!-- /.card-body -->
         </div>
         <!-- /.card -->

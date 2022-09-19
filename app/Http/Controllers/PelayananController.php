@@ -41,10 +41,10 @@ class PelayananController extends Controller
         $kesadaran = M_kesadaran::get();
         $statuspulang = M_status_pulang::get();
         if ($data->anamnesa == null) {
-            return view('superadmin.entri.pelayanan.anamnesa', compact('data', 'dokter', 'kesadaran', 'statuspulang'));
+            return view('superadmin.entri.pelayanan.anamnesa', compact('data', 'dokter', 'kesadaran', 'statuspulang', 'id'));
         } else {
             $anamnesa = $data->anamnesa;
-            return view('superadmin.entri.pelayanan.anamnesa2', compact('data', 'dokter', 'kesadaran', 'statuspulang', 'anamnesa'));
+            return view('superadmin.entri.pelayanan.anamnesa2', compact('data', 'dokter', 'kesadaran', 'statuspulang', 'anamnesa', 'id'));
         }
     }
 

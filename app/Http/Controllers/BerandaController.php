@@ -111,42 +111,35 @@ class BerandaController extends Controller
     public function checknomor()
     {
         $tgl = Carbon::now();
-
         $nomor = request()->nomor;
-
         $user = Auth::user();
-
-        $client = new Client([
-            'base_uri' => $user->base_url,
-        ]);
-
         try {
-
             if (Str::length($nomor) == 13) {
                 //bpjs
-                $response = $client->request('GET', 'peserta/' . $nomor, [
-                    'headers' => headers()
-                ]);
+                $response = WSCheckNomor('GET', $nomor);
             } else {
                 //nik
-                $response = $client->request('GET', 'peserta/nik/' . $nomor, [
-                    'headers' => headers()
-                ]);
+                $response = WSCheckNomorByNik('GET', $nomor);
             }
-            $poli = M_poli::get();
-            $data = json_decode((string)$response->getBody())->response;
-
-            if ($data->kdProviderPst->kdProvider != substr($user->user_pcare, 0, 8)) {
-                toastr()->error('TIDAK BISA MENDAFTAR DI FASKES ' . strtoupper($user->name) . ', ANDA TERDAFTAR DI FASKES ' . $data->kdProviderPst->nmProvider);
+            if ($response == null) {
                 request()->flash();
+                toastr()->error('Data Tidak Ditemukan');
                 return back();
             }
 
+            $poli = M_poli::get();
+            $data = $response;
+
+            // if ($data->kdProviderPst->kdProvider != substr($user->user_pcare, 0, 8)) {
+            //     toastr()->error('TIDAK BISA MENDAFTAR DI FASKES ' . strtoupper($user->name) . ', ANDA TERDAFTAR DI FASKES ' . $data->kdProviderPst->nmProvider);
+            //     request()->flash();
+            //     return back();
+            // }
+
             return view('superadmin.antrianbpjs2', compact('data', 'poli', 'tgl'));
         } catch (\Exception $e) {
-
-            generateHeaders();
-            toastr()->error('Gagal Sinkron');
+            $message = json_decode((string)$e->getResponse()->getBody())->response->message;
+            toastr()->error($message);
             return back();
         }
     }
@@ -217,8 +210,15 @@ class BerandaController extends Controller
         DB::beginTransaction();
         try {
             $attr = $req->all();
+
             $attr['kdPoli'] = M_poli::find($req->poli_id)->kdPoli;
             $attr['nmPoli'] = M_poli::find($req->poli_id)->nmPoli;
+
+            $check = T_antrian::where('noKartu', $req->noKartu)->where('tanggal', $req->tanggal)->where('kdPoli', $attr['kdPoli'])->first();
+            if ($check != null) {
+                toastr()->error('Tidak Bisa Mendaftar Pada tanggal Dan Poli Yang sama pada 1 hari');
+                return back();
+            }
 
             $db = T_antrian::where('tanggal', $req->tanggal)->where('kdPoli', $attr['kdPoli'])->get();
             if ($db->count() == 0) {

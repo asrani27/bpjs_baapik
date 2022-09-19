@@ -5,14 +5,17 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\KhususController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\SaranaController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TindakanController;
 use App\Http\Controllers\KesadaranController;
+use App\Http\Controllers\KunjunganController;
 use App\Http\Controllers\PelayananController;
 use App\Http\Controllers\SpesialisController;
 use App\Http\Controllers\PendaftaranController;
@@ -99,6 +102,12 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('/datamaster/data/spesialis/getspesialis', [SpesialisController::class, 'wsGetSpesialis']);
     Route::get('/datamaster/data/spesialis/getsubspesialis/{kode}', [SpesialisController::class, 'wsGetSubSpesialis']);
 
+    Route::get('/datamaster/data/khusus', [KhususController::class, 'index']);
+    Route::get('/datamaster/data/khusus/getkhusus', [KhususController::class, 'wsGetKhusus']);
+
+    Route::get('/datamaster/data/sarana', [SaranaController::class, 'index']);
+    Route::get('/datamaster/data/sarana/getsarana', [SaranaController::class, 'wsGetSarana']);
+
     Route::get('/datamaster/data/tindakan', [TindakanController::class, 'index']);
     Route::get('/datamaster/data/tindakan/sync', [TindakanController::class, 'sync']);
 
@@ -109,6 +118,8 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 
     Route::get('/entri/data/pelayanan', [PelayananController::class, 'index']);
     Route::post('/entri/data/pelayanan', [PelayananController::class, 'tanggal']);
+
+    Route::get('/entri/data/pelayanan/anamnesa/{id}/kunjungan', [KunjunganController::class, 'kunjungan']);
 
     Route::get('/entri/data/pelayanan/anamnesa/{id}', [PelayananController::class, 'anamnesa']);
     Route::post('/entri/data/pelayanan/anamnesa/{id}', [PelayananController::class, 'storeAnamnesa']);

@@ -116,6 +116,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/datamaster/data/sarana" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>SARANA</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/datamaster/data/khusus" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>KHUSUS</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/datamaster/data/tindakan" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>TINDAKAN</p>
