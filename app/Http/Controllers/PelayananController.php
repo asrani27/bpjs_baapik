@@ -11,7 +11,7 @@ use App\Models\M_kesadaran;
 use App\Models\M_status_pulang;
 use App\Models\M_tindakan;
 use App\Models\T_diagnosa;
-use App\Models\T_pelayanan;
+use App\Models\T_Pelayanan;
 use App\Models\T_tindakan;
 use App\Models\M_obat;
 use App\Models\T_antrian;
@@ -22,21 +22,21 @@ class PelayananController extends Controller
     public function index()
     {
         $today = Carbon::now()->format('d-m-Y');
-        $data = T_pelayanan::orderBy('id', 'DESC')->where('tglDaftar', $today)->get();
+        $data = T_Pelayanan::orderBy('id', 'DESC')->where('tglDaftar', $today)->get();
         return view('superadmin.entri.pelayanan.index', compact('data'));
     }
 
     public function tanggal(Request $req)
     {
         $tanggal = Carbon::parse($req->tanggal)->format('d-m-Y');
-        $data = T_pelayanan::orderBy('id', 'DESC')->where('tglDaftar', $tanggal)->get();
+        $data = T_Pelayanan::orderBy('id', 'DESC')->where('tglDaftar', $tanggal)->get();
         $req->flash();
         return view('superadmin.entri.pelayanan.index', compact('data'));
     }
 
     public function anamnesa($id)
     {
-        $data = T_pelayanan::find($id);
+        $data = T_Pelayanan::find($id);
         $dokter = M_dokter::get();
         $kesadaran = M_kesadaran::get();
         $statuspulang = M_status_pulang::get();
@@ -50,7 +50,7 @@ class PelayananController extends Controller
 
     public function diagnosa($id)
     {
-        $data = T_pelayanan::find($id);
+        $data = T_Pelayanan::find($id);
         $diagnosa = M_diagnosa::get();
 
         $myDiag = $data->diagnosa;
@@ -60,7 +60,7 @@ class PelayananController extends Controller
 
     public function resep($id)
     {
-        $data = T_pelayanan::find($id);
+        $data = T_Pelayanan::find($id);
         $obat = M_obat::get();
         $myResep = $data->resep;
         return view('superadmin.entri.pelayanan.resep', compact('data', 'obat', 'myResep'));
@@ -68,7 +68,7 @@ class PelayananController extends Controller
 
     public function tindakan($id)
     {
-        $data = T_pelayanan::find($id);
+        $data = T_Pelayanan::find($id);
         $tindakan = M_tindakan::get();
 
         $myTindakan = $data->tindakan;
@@ -94,7 +94,7 @@ class PelayananController extends Controller
         $attr = $req->all();
         $attr['tanggalPulang'] = Carbon::now();
 
-        T_pelayanan::find($id)->anamnesa->update($attr);
+        T_Pelayanan::find($id)->anamnesa->update($attr);
 
         toastr()->success('Anamnesa Berhasil Diupdate');
         return redirect('/entri/data/pelayanan');
